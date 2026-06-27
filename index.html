@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杂志排版布局项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(to right, #c9a96e, #e8d5b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 60px 40px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #c9a96e 0%, #b8943f 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #b8943f 0%, #a6832e 100%);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature h4 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .footer-links a {
+            color: #c9a96e;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #e8d5b7;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 40px 20px;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>杂志排版布局项目</h1>
+            <p class="subtitle">探索 7 种经典杂志版面结构，了解排版历史与印刷工业发展，掌握现代杂志行业的工作流程和最佳实践。</p>
+        </header>
+        
+        <div class="content">
+            <div class="grid">
+                <div class="card">
+                    <h3>📐 排版布局</h3>
+                    <p>详细解析 7 种经典杂志版面结构，包括通栏式、双栏式、三栏式、图文绕排、交错对位、模块化网格和自由版式。</p>
+                    <a href="layout.md" class="btn">查看布局指南</a>
+                </div>
+                
+                <div class="card">
+                    <h3>🛠️ 技术实现</h3>
+                    <p>使用 Pretext.js 实现的交互式排版演示，支持动态调整字体大小、列数等参数，实时测量文本高度和行数。</p>
+                    <a href="magazine-pretext.html" class="btn">运行演示</a>
+                </div>
+                
+                <div class="card">
+                    <h3>📚 历史发展</h3>
+                    <p>从古腾堡印刷术到数字时代的排版演变，了解杂志排版的历史、印刷工业发展以及现代工作流程。</p>
+                    <a href="magazine-history.md" class="btn">阅读历史</a>
+                </div>
+                
+                <div class="card">
+                    <h3>📖 完整文档</h3>
+                    <p>项目概述、布局指南、技术实现和最佳实践的完整文档，帮助您全面了解杂志排版设计。</p>
+                    <a href="docs.md" class="btn">浏览文档</a>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h4>设计原则</h4>
+                    <p>学习杂志排版的核心设计原则，包括网格系统、字体使用、色彩管理等。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h4>技术工具</h4>
+                    <p>了解现代杂志排版的技术工具，从设计软件到印刷技术。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h4>工作流程</h4>
+                    <p>掌握从选题策划到发行分发的完整杂志制作工作流程。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h4>最佳实践</h4>
+                    <p>学习行业最佳实践，提高排版效率和质量。</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>杂志排版布局项目 © 2026</p>
+            <div class="footer-links">
+                <a href="https://github.com/ZeroMarker/magazine">GitHub 仓库</a>
+                <a href="pretext.md">Pretext.js 文档</a>
+                <a href="https://github.com/ZeroMarker/magazine/issues">反馈建议</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

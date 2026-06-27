@@ -7,6 +7,7 @@
 - `layout.md` - 7 种基础版面结构的详细说明
 - `magazine-pretext.html` - 使用 Pretext.js 实现的交互式排版演示
 - `pretext.md` - Pretext.js 库的使用文档
+- `docs.md` - 完整项目文档和指南
 
 ## 快速开始
 
@@ -14,6 +15,7 @@
 
 ## 文档
 
+- [完整项目文档](docs.md) - 项目概述、布局指南和技术实现
 - [Pretext.js 使用文档](pretext.md) - 文本测量与布局库的完整指南
 - [排版布局说明](layout.md) - 7 种经典杂志版面结构详解
 

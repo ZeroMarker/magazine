@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杂志排版布局 7 式 — Pretext 驱动</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans SC',sans-serif;
+  background:#f4f4f4;color:#222;line-height:1.7
+}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:54px;
+  background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+  padding:0 36px;display:flex;align-items:center;gap:28px;
+  box-shadow:0 1px 10px rgba(0,0,0,.06);font-size:.82rem
+}
+nav .br{
+  font-family:'Playfair Display',serif;font-weight:700;
+  letter-spacing:2px;color:#c9a96e;margin-right:auto
+}
+nav a{text-decoration:none;color:#555;transition:color .2s}
+nav a:hover{color:#c9a96e}
+
+/* section */
+.sc{
+  min-height:100vh;padding:90px 48px 56px;
+  max-width:1200px;margin:0 auto 20px;
+  background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.04)
+}
+.sl{
+  font-family:'Playfair Display',serif;
+  font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
+  color:#c9a96e;margin-bottom:2px
+}
+.st{
+  font-size:1.5rem;font-weight:300;color:#999;
+  margin-bottom:28px;letter-spacing:1px
+}
+
+/* hud */
+.hud{
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+  background:#fafafa;padding:10px 18px;margin-bottom:22px;
+  border-radius:6px;border:1px solid #eee;
+  font-size:.8rem;color:#666
+}
+.hud label{display:flex;align-items:center;gap:8px}
+.hud input[type=range]{width:80px;cursor:pointer}
+.hud .v{font-family:monospace;color:#999;min-width:40px}
+
+/* pill */
+.pill{
+  display:inline-flex;gap:14px;font-size:.7rem;
+  font-family:'Courier New',monospace;color:#888;margin-top:14px;flex-wrap:wrap
+}
+.pill span{background:#f4f4f4;padding:2px 10px;border-radius:3px}
+.pill b{color:#c9a96e}
+
+/* dash */
+#d{
+  position:fixed;bottom:16px;right:16px;z-index:999;
+  background:rgba(26,26,46,.93);backdrop-filter:blur(8px);
+  color:#fff;padding:12px 16px;border-radius:8px;
+  font:.65rem 'Courier New',monospace;min-width:180px;
+  border:1px solid rgba(255,255,255,.08)
+}
+#d h4{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:4px}
+#d .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+#d .r:last-child{border-bottom:none}
+#d .v{color:#7bf}
+
+/* ════════════════════════════════════════
+   1. 通栏式
+   ════════════════════════════════════════ */
+.col1{max-width:720px;margin:0 auto}
+.col1-hdr{text-align:center;margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid #eee}
+.col1-cat{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px}
+.col1-h1{font-family:'Noto Serif SC',serif;font-size:2.2rem;font-weight:700;line-height:1.25;color:#111;margin-bottom:8px}
+.col1-sub{font-size:.95rem;color:#888;font-weight:300}
+.col1-body{font-size:1.05rem;line-height:2.2;color:#444}
+.col1-body p{margin-bottom:1.6em;text-indent:2em}
+.col1-body p:first-child{text-indent:0}
+
+/* ════════════════════════════════════════
+   2. 双栏式
+   ════════════════════════════════════════ */
+.two-wrap{column-gap:44px;column-rule:1px solid #eee;text-align:justify;transition:column-count .3s}
+.two-p{margin-bottom:1.4em;text-indent:2em}
+.two-p:first-child{text-indent:0}
+.dc::first-letter{
+  float:left;font-family:'Playfair Display',serif;
+  font-size:4.2rem;line-height:.8;padding-right:10px;padding-top:6px;
+  color:#c9a96e;font-weight:700
+}
+.pq{
+  column-span:all;margin:36px 0;padding:28px 40px;
+  background:#fafafa;border-left:4px solid #c9a96e;
+  font-family:'Noto Serif SC',serif;font-size:1.2rem;line-height:1.6;color:#111;position:relative
+}
+.pq::before{
+  content:'\201C';font-family:'Playfair Display',serif;
+  font-size:4.4rem;color:#c9a96e;opacity:.2;
+  position:absolute;top:2px;left:14px;line-height:1
+}
+.pq cite{display:block;margin-top:12px;font-size:.75rem;font-family:'Noto Sans SC',sans-serif;color:#999;font-style:normal}
+
+/* ════════════════════════════════════════
+   3. 三栏式
+   ════════════════════════════════════════ */
+.three-wrap{column-gap:32px;column-rule:1px solid #eee;text-align:justify;transition:column-count .3s}
+.three-p{margin-bottom:1.2em;text-indent:2em;font-size:.92rem}
+.three-p:first-child{text-indent:0}
+.three-hdr{text-align:center;margin-bottom:32px}
+.three-cat{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:8px}
+.three-h1{font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:700;color:#111;margin-bottom:6px}
+
+/* ════════════════════════════════════════
+   4. 图文绕排
+   ════════════════════════════════════════ */
+.wrap{border:1px solid #eee;padding:36px;position:relative}
+.wrap-img{
+  float:left;width:200px;height:260px;margin:4px 24px 12px 0;
+  background:linear-gradient(135deg,#e8ddd0,#d5c5b5);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;letter-spacing:2px;color:#998;
+  shape-outside:margin-box
+}
+.wrap-img.r{float:right;margin:4px 0 12px 24px}
+.wrap-p{font-size:.95rem;line-height:2;color:#444;margin-bottom:1.2em;text-indent:2em}
+.wrap-p:first-child{text-indent:0}
+
+/* ════════════════════════════════════════
+   5. 交错对位
+   ════════════════════════════════════════ */
+.stagger{display:flex;flex-direction:column;gap:28px}
+.stag{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:240px;
+  border:1px solid #eee
+}
+.stag-img{
+  background:
+    linear-gradient(45deg,#c9a96e15,#e9456015),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23f5f5f5' width='400' height='300'/%3E%3Crect fill='%23e0d5c5' x='40' y='40' width='320' height='220' opacity='.5'/%3E%3C/svg%3E");
+  background-size:cover;background-position:center;min-height:240px
+}
+.stag-body{padding:32px 28px;display:flex;flex-direction:column;justify-content:center}
+.stag-kicker{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px}
+.stag-h3{font-family:'Noto Serif SC',serif;font-size:1.3rem;font-weight:700;color:#111;margin-bottom:10px;line-height:1.25}
+.stag-p{font-size:.88rem;color:#555;line-height:1.9}
+.stag.r{direction:rtl}
+.stag.r>*{direction:ltr}
+
+/* ════════════════════════════════════════
+   6. 模块化网格
+   ════════════════════════════════════════ */
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.mcell{
+  border:1px solid #eee;padding:20px;border-radius:4px;
+  background:#fcfcfc;min-height:160px;
+  display:flex;flex-direction:column
+}
+.mcell.w2{grid-column:span 2}
+.mcell.h2{grid-row:span 2}
+.mcell.accent{background:#c9a96e;color:#fff;border-color:#c9a96e}
+.mcell.accent .mp{color:rgba(255,255,255,.9)}
+.mnum{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1;opacity:.15;margin-bottom:10px}
+.mcell.accent .mnum{opacity:.25}
+.mh4{font-size:.85rem;font-weight:600;margin-bottom:8px;color:#111}
+.mcell.accent .mh4{color:#fff}
+.mp{font-size:.78rem;color:#666;line-height:1.6;flex:1}
+
+/* ════════════════════════════════════════
+   7. 自由版式
+   ════════════════════════════════════════ */
+.free{
+  position:relative;min-height:640px;border:1px solid #eee;
+  background:linear-gradient(160deg,#fafafa,#f4f4f4)
+}
+.free-el{
+  position:absolute;padding:20px 24px;max-width:320px
+}
+.free-el.hl{background:#c9a96e;color:#fff}
+.free-el.hl p{color:rgba(255,255,255,.9)}
+.free-el h4{font-family:'Noto Serif SC',serif;font-size:1.1rem;margin-bottom:6px}
+.free-el p{font-size:.85rem;color:#555;line-height:1.7}
+.free-el .ct{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:4px}
+.free-el.hl .ct{color:rgba(255,255,255,.7)}
+
+/* responsive */
+@media(max-width:900px){
+  .sc{padding:80px 20px 40px}
+  .stag,.stag.r{grid-template-columns:1fr;direction:ltr}
+  .stag-img{min-height:200px}
+  .mgrid{grid-template-columns:repeat(2,1fr)}
+  .mcell.w2{grid-column:span 2}
+  nav a:not(.br){display:none}
+  .free-el{position:static!important;max-width:none!important;border-bottom:1px solid #eee}
+}
+@media(max-width:600px){
+  .mgrid{grid-template-columns:1fr}.mcell.w2{grid-column:span 1}
+  .wrap-img{float:none!important;width:100%;margin:0 0 12px!important;height:200px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="br">LAY·OUT 7</span>
+  <a href="#s1">通栏</a>
+  <a href="#s2">双栏</a>
+  <a href="#s3">三栏</a>
+  <a href="#s4">绕排</a>
+  <a href="#s5">交错</a>
+  <a href="#s6">网格</a>
+  <a href="#s7">自由</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     1. 通栏式
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s1">
+  <div class="sl">Layout 01</div>
+  <h1 class="st">通栏式 · Single Column</h1>
+  <div class="hud">
+    <label>正文大小 <input type="range" id="s1fs" min="14" max="26" value="17" step="1"></label>
+    <span class="v" id="s1fsv">17px</span>
+  </div>
+  <div class="col1">
+    <header class="col1-hdr">
+      <div class="col1-cat">编辑手记</div>
+      <h1 class="col1-h1">编者的话</h1>
+      <p class="col1-sub">来自主编的问候与本期导读</p>
+    </header>
+    <div class="col1-body" id="s1body">
+      <p>亲爱的读者：</p>
+      <p>欢迎来到三月刊。在这个万物复苏的季节，我们为您精心准备了一系列关于"美与日常"的内容。本期封面故事聚焦于当代美学的重新定义。在快速变化的时代，什么是真正的美？是潮流的追逐，还是内心的笃定？</p>
+      <p>我们的团队走访了多位设计师和艺术家，试图寻找答案。他们的回答不尽相同，但有一点是共通的——美源于对生活的热爱，对细节的执着，对真实的坚持。</p>
+      <p>在专题报道中，我们深入探讨了极简主义、可持续设计、建筑空间等话题。这些内容或许不能立即改变您的生活，但希望能为您带来新的视角，在日常中发现不平凡。</p>
+      <p>特别值得一提的是本期的人物专访。我们有幸与国际知名设计师进行了深度对话，听他讲述创意背后的故事。那些关于挫折、突破、坚持的经历，相信会给每一位追梦者以启发。</p>
+      <p>感谢您一直以来的支持与陪伴。祝您阅读愉快！</p>
+    </div>
+    <div style="margin-top:28px;padding-top:24px;border-top:1px solid #eee;font-family:'Noto Serif SC',serif;font-style:italic;color:#111">主编 · 林子墨</div>
+  </div>
+  <div class="pill" id="s1pill">
+    <span>总行数 <b id="s1lc">-</b></span>
+    <span>高度 <b id="s1ht">-</b> px</span>
+    <span>阅读时间 <b id="s1rt">-</b></span>
+    <span>字数 <b id="s1ch">-</b></span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     2. 双栏式
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s2">
+  <div class="sl">Layout 02</div>
+  <h1 class="st">双栏式 · Two Column</h1>
+  <div class="hud">
+    <label>栏数 <input type="range" id="s2col" min="1" max="2" value="2" step="1"></label>
+    <span class="v" id="s2colv">2 栏</span>
+  </div>
+  <div style="max-width:920px;margin:0 auto">
+    <header style="text-align:center;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid #eee">
+      <div style="font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px">深度阅读</div>
+      <h1 style="font-family:'Noto Serif SC',serif;font-size:2.4rem;font-weight:700;color:#111;margin-bottom:8px">建筑与时间的对话</h1>
+      <p style="font-size:.95rem;color:#888;font-weight:300">当代建筑如何在传承与创新之间寻找平衡</p>
+      <div style="margin-top:16px;font-size:.8rem;color:#999">文 / 陈建安 · 摄影 / 王艺萌</div>
+    </header>
+    <div class="two-wrap" id="s2wrap" style="column-count:2">
+      <p class="two-p dc">建筑是凝固的音乐，也是时间的容器。每一座建筑都承载着特定时代的记忆与愿景，同时又以其独特的空间语言与使用者进行着无声的交流。在当代建筑设计中，如何平衡传统与现代、功能与美学、个体与群体，成为每一位建筑师必须面对的命题。</p>
+      <p class="two-p">日本建筑师安藤忠雄曾说过："建筑的价值在于它能否唤起人们内心的感动。"这句话道出了建筑设计的本质——技术只是手段，情感的共鸣才是目的。</p>
+      <blockquote class="pq">
+        好的建筑应该像一本好书，每次阅读都能发现新的细节，每次造访都能获得不同的体验。
+        <cite>—— 建筑师 李华</cite>
+      </blockquote>
+      <p class="two-p">近年来，"新在地主义"成为全球建筑设计的重要趋势。当代建筑师越来越重视挖掘场地本身的文化基因，运用本土材料、借鉴传统工艺、回应气候特征，创造出既现代又根植于土地的作品。</p>
+      <p class="two-p">可持续性也是当代建筑不可忽视的维度。被动式设计、可再生能源、循环材料等概念从边缘走向主流，"零碳建筑"不再是遥不可及的梦想。</p>
+      <p class="two-p">展望未来，数字化技术正在深刻改变设计方式。参数化设计让复杂形态成为可能，但技术越发达，人文价值越显珍贵。</p>
+    </div>
+  </div>
+  <div class="pill" id="s2pill">
+    <span>总行数 <b id="s2lc">-</b></span>
+    <span>每栏约 <b id="s2ppc">-</b> 行</span>
+    <span>阅读时间 <b id="s2rt">-</b></span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     3. 三栏式
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s3">
+  <div class="sl">Layout 03</div>
+  <h1 class="st">三栏式 · Three Column</h1>
+  <div class="hud">
+    <label>栏数 <input type="range" id="s3col" min="1" max="4" value="3" step="1"></label>
+    <span class="v" id="s3colv">3 栏</span>
+    <span style="font-family:monospace;color:#999">建议栏宽 ≥ 200px</span>
+  </div>
+  <div style="max-width:960px;margin:0 auto">
+    <div class="three-hdr">
+      <div class="three-cat">文化观察</div>
+      <h1 class="three-h1">数字时代的阅读变迁</h1>
+      <p style="font-size:.85rem;color:#999">从纸张到屏幕，阅读形态的演变</p>
+    </div>
+    <div class="three-wrap" id="s3wrap" style="column-count:3">
+      <p class="three-p">人类的阅读史本质上是一部媒介进化史。从甲骨到竹简，从羊皮卷到印刷书，每一次媒介革命都重塑了人类的认知方式。今天，我们正在经历又一次巨变。</p>
+      <p class="three-p">屏幕阅读正在取代纸质阅读成为主流。据统计，全球成年人平均每天花费超过 6 小时在数字设备上阅读信息，而深度阅读纸质书的时间不足 20 分钟。</p>
+      <p class="three-p">神经科学研究表明，纸质阅读和屏幕阅读激活的是不同的大脑区域。纸质书的物理属性——翻页的触感、油墨的气味、翻阅的进度感——都强化了记忆的编码。</p>
+      <p class="three-p">"线性阅读"正在被"非线性浏览"取代。超链接、推送通知、多标签页切换，这些数字时代的特征正在重塑我们的注意力模式。</p>
+      <p class="three-p">然而，并非所有变化都是消极的。数字阅读带来了前所未有的信息获取效率，也让阅读变得更加民主和普及。</p>
+      <p class="three-p">未来，阅读的形态将更加多元。纸质书不会消亡，数字阅读也不会止步。关键在于，我们需要学会在不同场景中选择合适的阅读方式。</p>
+    </div>
+  </div>
+  <div class="pill" id="s3pill">
+    <span>总行数 <b id="s3lc">-</b></span>
+    <span>每栏约 <b id="s3ppc">-</b> 行</span>
+    <span>栏宽约 <b id="s3cw">-</b> px</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     4. 图文绕排
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s4">
+  <div class="sl">Layout 04</div>
+  <h1 class="st">图文绕排 · Text Wrap</h1>
+  <div class="hud">
+    <label>图片位置 <select id="s4side">
+      <option value="left">居左</option>
+      <option value="right">居右</option>
+    </select></label>
+    <label>图片宽度 <input type="range" id="s4w" min="120" max="320" value="200" step="10"></label>
+    <span class="v" id="s4wv">200px</span>
+  </div>
+  <div class="wrap" id="s4wrap">
+    <div class="wrap-img" id="s4img">IMAGE</div>
+    <p class="wrap-p dc" style="font-weight:600;text-indent:0;color:#111">阅读空间的演变，不仅是技术问题，更是文化问题。我们在哪里阅读，如何阅读，为什么阅读——这些问题指向了人类认知最根本的层面。</p>
+    <p class="wrap-p" id="s4body">在过去的二十年里，书店的角色发生了根本性的转变。从单纯的书刊销售场所，演变为复合型的文化空间。咖啡、文创、展览、讲座……这些元素共同构成了"第三空间"的概念——既不是家也不是办公室，而是介于二者之间的精神栖息地。
+
+独立书店的复兴是这一趋势中最引人注目的现象。与大型连锁书店不同，独立书店通常由真正热爱阅读的人经营，他们精心挑选的每一本书都体现着个人的品味和态度。这种"策展式选书"模式，让独立书店成为了城市中不可替代的文化地标。
+
+书店的空间设计也随之进化。从传统的密集书架排列，到如今注重留白和动线的设计，书店正在变得更加"好逛"。灯光、音乐、香氛——所有的感官元素都被调动起来，为阅读创造一个全方位的沉浸体验。
+
+越来越多的书店开始尝试"书店 + 住宿"的模式。在日本东京，著名的茑屋书店不仅卖书，还经营着酒店。客人们可以在入住期间随意翻阅店内的藏书，将阅读体验延伸到了私人空间。这种模式正在被全球各地的书店效仿。
+
+在中国，从成都的方所到上海的思南书局，从北京的单向空间到广州的 1200 书店，独立书店正在以各自的方式重新定义城市阅读文化。它们不仅是卖书的场所，更是一座城市的精神灯塔。</p>
+  </div>
+  <div class="pill" id="s4pill">
+    <span>绕排行数 <b id="s4lc">-</b></span>
+    <span>正文高度 <b id="s4ht">-</b> px</span>
+    <span>字数 <b id="s4ch">-</b></span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     5. 交错对位
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s5">
+  <div class="sl">Layout 05</div>
+  <h1 class="st">交错对位 · Staggered</h1>
+  <div class="hud">
+    <label>正文字号 <input type="range" id="s5fs" min="13" max="22" value="15" step="1"></label>
+    <span class="v" id="s5fsv">15px</span>
+  </div>
+  <div class="stagger" id="s5stagger">
+    <div class="stag">
+      <div class="stag-img"></div>
+      <div class="stag-body">
+        <div class="stag-kicker">城市漫步</div>
+        <h3 class="stag-h3">京都的巷弄哲学</h3>
+        <p class="stag-p">京都的魅力不在大路，而在那些窄到几乎无法会车的巷弄里。每一条巷弄都有自己的节奏：腌渍店的木桶、和果子店的暖帘、町家改造的咖啡馆……时间的流速在这里变得不同。</p>
+      </div>
+    </div>
+    <div class="stag r">
+      <div class="stag-img"></div>
+      <div class="stag-body">
+        <div class="stag-kicker">人物专访</div>
+        <h3 class="stag-h3">设计是诚实的表达</h3>
+        <p class="stag-p">"好的设计不需要解释，"著名工业设计师深泽直人说，"当使用者拿到一件物品，自然就知道怎么用——这是设计最本真的状态。"他的理念影响了整整一代设计师。</p>
+      </div>
+    </div>
+    <div class="stag">
+      <div class="stag-img"></div>
+      <div class="stag-body">
+        <div class="stag-kicker">书评</div>
+        <h3 class="stag-h3">在文字中寻找安静</h3>
+        <p class="stag-p">在这个信息过载的时代，阅读一本需要专注的书，本身就是一种反叛。当你的目光逐行扫过纸页，世界其他部分的喧嚣暂时退去——那是最接近冥想的状态。</p>
+      </div>
+    </div>
+  </div>
+  <div class="pill" id="s5pill">
+    <span>段落数 <b>3</b></span>
+    <span>文本总高 <b id="s5th">-</b> px</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     6. 模块化网格
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s6">
+  <div class="sl">Layout 06</div>
+  <h1 class="st">模块化网格 · Modular Grid</h1>
+  <div class="hud">
+    <label>正文字号 <input type="range" id="s6fs" min="11" max="18" value="13" step="1"></label>
+    <span class="v" id="s6fsv">13px</span>
+  </div>
+  <div class="mgrid" id="s6grid">
+    <div class="mcell accent w2">
+      <div class="mnum">●</div>
+      <h4 class="mh4">2026 设计趋势</h4>
+      <p class="mp" id="s6t0">从生物材料到生成式 AI，设计行业正在经历前所未有的范式转移。未来的设计师不仅要掌握视觉语言，更需要理解技术伦理和生态责任。</p>
+    </div>
+    <div class="mcell">
+      <div class="mnum">01</div>
+      <h4 class="mh4">材料革命</h4>
+      <p class="mp" id="s6t1">生物基材料、可降解聚合物、再生金属——新材料正在重新定义"可持续"的含义。设计师的角色从造型者转变为材料策展人。</p>
+    </div>
+    <div class="mcell">
+      <div class="mnum">02</div>
+      <h4 class="mh4">循环经济</h4>
+      <p class="mp" id="s6t2">模块化设计、易拆解结构让产品生命周期管理成为可能，从摇篮到摇篮的闭环不再是乌托邦式的想象。</p>
+    </div>
+    <div class="mcell">
+      <div class="mnum">03</div>
+      <h4 class="mh4">在地化</h4>
+      <p class="mp" id="s6t3">全球化退潮后，设计开始重新拥抱本土材料和传统工艺，寻找技术与人文的平衡点。</p>
+    </div>
+    <div class="mcell w2">
+      <div class="mnum">04</div>
+      <h4 class="mh4">AI 协作</h4>
+      <p class="mp" id="s6t4">生成式 AI 正在改变设计流程。设计师的角色从执行者转向策展人和提问者，人机协作成为新常态。如何保持设计的"人性温度"成为核心议题。</p>
+    </div>
+    <div class="mcell">
+      <div class="mnum">05</div>
+      <h4 class="mh4">包容性</h4>
+      <p class="mp" id="s6t5">包容性设计不再只是无障碍的同义词，而是关乎如何让更多人参与到设计过程中，让多元视角塑造更好的解决方案。</p>
+    </div>
+    <div class="mcell">
+      <div class="mnum">06</div>
+      <h4 class="mh4">数据可视化</h4>
+      <p class="mp" id="s6t6">数据叙事正在成为设计师的核心竞争力。将复杂信息转化为直观体验，需要同时具备分析思维和叙事能力。</p>
+    </div>
+  </div>
+  <div class="pill" id="s6pill">
+    <span>模块 <b>7</b></span>
+    <span>最大行数 <b id="s6ml">-</b></span>
+    <span>文本总高 <b id="s6th">-</b> px</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     7. 自由版式
+     ════════════════════════════════════════════════ -->
+<section class="sc" id="s7">
+  <div class="sl">Layout 07</div>
+  <h1 class="st">自由版式 · Free / Asymmetric</h1>
+  <div class="hud">
+    <label>字号缩放 <input type="range" id="s7scale" min="80" max="140" value="100" step="5"></label>
+    <span class="v" id="s7scalev">100%</span>
+  </div>
+  <div class="free" id="s7free">
+    <div class="free-el" id="s7e1" style="top:28px;left:28px;max-width:280px">
+      <div class="ct">封面故事</div>
+      <h4>设计的善意</h4>
+      <p>好的设计从不张扬，它默默改善着我们的日常生活。</p>
+    </div>
+    <div class="free-el hl" id="s7e2" style="top:28px;right:28px;max-width:220px">
+      <h4>少即是多</h4>
+      <p>密斯·凡·德·罗的格言在消费主义盛行的今天有了新的意义。</p>
+    </div>
+    <div class="free-el" id="s7e3" style="bottom:120px;left:10%">
+      <div class="ct">数字人文</div>
+      <h4>算法与直觉</h4>
+      <p>在数据驱动的世界里，设计师的直觉反而变得更加珍贵。</p>
+    </div>
+    <div class="free-el" id="s7e4" style="bottom:32px;right:30%">
+      <h4>材料是诚实的</h4>
+      <p>每一种材料都有自己的语言，设计师的工作是让材料自己说话。</p>
+    </div>
+    <div class="free-el" id="s7e5" style="top:45%;left:50%;transform:translate(-50%,-50%);text-align:center;max-width:360px">
+      <div class="ct">趋势</div>
+      <h4>慢设计运动</h4>
+      <p>在快速迭代的时代，慢设计提倡深思熟虑的创作过程，关注 longevity 而非 novelty。</p>
+    </div>
+  </div>
+  <div class="pill" id="s7pill">
+    <span>元素 <b>5</b></span>
+    <span>总文本行数 <b id="s7lc">-</b></span>
+    <span>平均行数/块 <b id="s7avg">-</b></span>
+  </div>
+</section>
+
+<!-- Dashboard -->
+<div id="d">
+  <h4>⚡ Pretext Engine</h4>
+  <div class="r"><span>blocks measured</span><span class="v" id="dBlk">0</span></div>
+  <div class="r"><span>total lines</span><span class="v" id="dLn">0</span></div>
+  <div class="r"><span>total chars</span><span class="v" id="dCh">0</span></div>
+</div>
+
+<script type="module">
+import{prepare as p_,layout as l_}from'https://esm.sh/@chenglou/pretext@0.0.4';
+
+const $=id=>document.getElementById(id);
+const gf=el=>{
+  const s=getComputedStyle(el);
+  return `${s.fontWeight||'400'} ${s.fontSize||'16px'} ${s.fontFamily||'sans-serif'}`
+};
+const lh=el=>{
+  const s=getComputedStyle(el),fs=parseFloat(s.fontSize),v=s.lineHeight;
+  return v==='normal'?Math.round(fs*1.6):(parseFloat(v)||fs*1.6)
+};
+const ms=(txt,font,w,lh_)=>{
+  try{return l_(p_(txt,font,{whiteSpace:'normal'}),w,lh_)}
+  catch(e){return null}
+};
+
+let blk=0,tln=0,tch=0;
+const db=()=>{$('dBlk').textContent=blk;$('dLn').textContent=tln;$('dCh').textContent=tch};
+
+// ── 1. 通栏 ──
+function s1(){
+  const el=$('s1body'),fs=parseInt($('s1fs').value);
+  $('s1fsv').textContent=fs+'px';
+  el.style.fontSize=fs+'px';
+  const txt=el.textContent.replace(/\s+/g,' ').trim(),f=gf(el),l=lh(el),w=el.clientWidth;
+  if(w>0){
+    const r=ms(txt,f,w,l);
+    if(r){
+      $('s1lc').textContent=r.lineCount;$('s1ht').textContent=Math.round(r.height);
+      $('s1ch').textContent=txt.length;
+      const min=Math.max(1,Math.round(txt.length/250));
+      $('s1rt').textContent=`约 ${min} 分钟`;
+      blk++;tln+=r.lineCount;tch+=txt.length;db()
+    }
+  }
+}
+$('s1fs').addEventListener('input',s1);
+
+// ── 2. 双栏 ──
+function s2(){
+  const n=parseInt($('s2col').value);
+  $('s2colv').textContent=n+' 栏';
+  $('s2wrap').style.columnCount=n;
+  const ps=$('s2wrap').querySelectorAll('.two-p'),all=Array.from(ps).map(p=>p.textContent).join(' ');
+  const f=gf(ps[0]),l=lh(ps[0]);
+  const cw=($('s2wrap').clientWidth-44*(n-1))/n;
+  if(cw>0){
+    const r=ms(all,f,cw,l);
+    if(r){
+      $('s2lc').textContent=r.lineCount*n;
+      $('s2ppc').textContent=Math.round(r.lineCount);
+      const min=Math.max(1,Math.round(all.length/250));
+      $('s2rt').textContent=`约 ${min} 分钟`;
+      blk++;tln+=r.lineCount*n;tch+=all.length;db()
+    }
+  }
+}
+$('s2col').addEventListener('input',s2);
+
+// ── 3. 三栏 ──
+function s3(){
+  const n=parseInt($('s3col').value);
+  $('s3colv').textContent=n+' 栏';
+  $('s3wrap').style.columnCount=n;
+  const ps=$('s3wrap').querySelectorAll('.three-p'),all=Array.from(ps).map(p=>p.textContent).join(' ');
+  const f=gf(ps[0]),l=lh(ps[0]);
+  const cw=($('s3wrap').clientWidth-32*(n-1))/n;
+  if(cw>0){
+    const r=ms(all,f,cw,l);
+    if(r){
+      $('s3lc').textContent=r.lineCount*n;
+      $('s3ppc').textContent=Math.round(r.lineCount);
+      $('s3cw').textContent=Math.round(cw);
+      blk++;tln+=r.lineCount*n;tch+=all.length;db()
+    }
+  }
+}
+$('s3col').addEventListener('input',s3);
+
+// ── 4. 绕排 ──
+function s4(){
+  const side=$('s4side').value,iw=parseInt($('s4w').value);
+  $('s4wv').textContent=iw+'px';
+  const img=$('s4img');
+  img.style.cssFloat=side;
+  img.style.width=iw+'px';
+  img.className='wrap-img'+(side==='right'?' r':'');
+
+  const el=$('s4body'),txt=el.textContent.replace(/\s+/g,' ').trim();
+  const f=gf(el),l=lh(el);
+  // estimate wrap width: container minus image width + margin gap
+  const wrap=$('s4wrap'),ww=wrap.clientWidth-72-(side==='left'?iw+24:0); // 72=padding, 24=gap
+  if(ww>100){
+    const r=ms(txt,f,ww,l);
+    if(r){
+      $('s4lc').textContent=r.lineCount;$('s4ht').textContent=Math.round(r.height);
+      $('s4ch').textContent=txt.length;
+      blk++;tln+=r.lineCount;tch+=txt.length;db()
+    }
+  }
+}
+$('s4side').addEventListener('change',s4);
+$('s4w').addEventListener('input',s4);
+
+// ── 5. 交错 ──
+function s5(){
+  const fs=parseInt($('s5fs').value);
+  $('s5fsv').textContent=fs+'px';
+  let th=0;
+  $('s5stagger').querySelectorAll('.stag-p').forEach(el=>{
+    el.style.fontSize=fs+'px';
+    const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
+    if(w>0){const r=ms(txt,f,w,l);if(r)th+=r.height}
+  });
+  $('s5th').textContent=Math.round(th);
+  blk+=3;db()
+}
+$('s5fs').addEventListener('input',s5);
+
+// ── 6. 网格 ──
+function s6(){
+  const fs=parseInt($('s6fs').value);
+  $('s6fsv').textContent=fs+'px';
+  $('s6grid').querySelectorAll('.mp').forEach(el=>el.style.fontSize=fs+'px');
+  const ids=['s6t0','s6t1','s6t2','s6t3','s6t4','s6t5','s6t6'];
+  let ml=0,th=0;
+  ids.forEach(id=>{
+    const el=$(id);if(!el)return;
+    const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
+    if(w>0){const r=ms(txt,f,w,l);if(r){ml=Math.max(ml,r.lineCount);th+=r.height}}
+  });
+  $('s6ml').textContent=ml;$('s6th').textContent=Math.round(th);
+  blk+=ids.length;db()
+}
+$('s6fs').addEventListener('input',s6);
+
+// ── 7. 自由 ──
+function s7(){
+  const scale=parseInt($('s7scale').value)/100;
+  $('s7scalev').textContent=Math.round(scale*100)+'%';
+  let tot=0,cnt=0;
+  for(let i=1;i<=5;i++){
+    const el=$(('s7e'+i));if(!el)continue;
+    el.style.fontSize=(14*scale)+'px';
+    const txt=el.textContent.replace(/\s+/g,' ').trim(),f=gf(el),l=lh(el);
+    // estimate at ~200px width for free elements
+    const r=ms(txt,f,220,l);
+    if(r){tot+=r.lineCount;cnt++}
+  }
+  $('s7lc').textContent=tot;
+  $('s7avg').textContent=cnt?(tot/cnt).toFixed(1):'-';
+  blk+=cnt;tln+=tot;db()
+}
+$('s7scale').addEventListener('input',s7);
+
+// ── All ──
+function all(){blk=0;tln=0;tch=0;s1();s2();s3();s4();s5();s6();s7()}
+let rt;
+window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(all,250)});
+document.fonts.ready.then(()=>setTimeout(all,120));
+window.addEventListener('load',all);
+
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'})
+  })
+});
+
+console.log('7 layouts × Pretext ready');
+</script>
+</body>
+</html>

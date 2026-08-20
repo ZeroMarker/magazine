@@ -76,7 +76,8 @@
   .palette {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    column-gap: 14px;
+    row-gap: 42px; /* 留出下方文字标签空间，避免被下一行色卡遮挡 */
   }
   @media (max-width: 480px) { .palette { grid-template-columns: repeat(3, 1fr); } }
   .chip {
@@ -90,9 +91,9 @@
   .chip:hover { transform: scale(1.08); }
   .chip.on { border-color: var(--gold); box-shadow: 0 8px 20px rgba(92,10,30,.35); transform: scale(1.08); }
   .chip span {
-    position: absolute; bottom: -22px; left: 0; right: 0;
+    position: absolute; bottom: -24px; left: -4px; right: -4px;
     font-size: 0.68rem; text-align: center; color: var(--grey);
-    white-space: nowrap; overflow: hidden;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .palette-wrap { padding-bottom: 26px; }
 

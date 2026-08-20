@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>口红编年史 · 绯色 ROUGE</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- 时间线 ---------- */
+  .timeline { position: relative; max-width: 860px; margin: 50px auto 0; padding: 20px 0; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--rouge), var(--wine));
+    transform: translateX(-50%);
+  }
+  .era {
+    position: relative;
+    width: 50%;
+    padding: 0 46px 60px;
+  }
+  .era:nth-child(odd) { left: 0; text-align: right; }
+  .era:nth-child(even) { left: 50%; }
+  .era::before { /* 时间轴节点 */
+    content: '';
+    position: absolute; top: 6px;
+    width: 16px; height: 16px;
+    background: var(--crimson);
+    border: 3px solid var(--gold-light);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--cream);
+  }
+  .era:nth-child(odd)::before { right: -11px; }
+  .era:nth-child(even)::before { left: -11px; }
+  .era .year {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--rouge);
+    line-height: 1.1;
+  }
+  .era h3 { font-family: var(--serif); font-size: 1.15rem; margin: 6px 0 8px; }
+  .era p { font-size: 0.9rem; color: #555; }
+
+  @media (max-width: 700px) {
+    .timeline::before { left: 12px; }
+    .era, .era:nth-child(odd), .era:nth-child(even) {
+      width: 100%; left: 0; text-align: left; padding: 0 0 46px 44px;
+    }
+    .era:nth-child(odd)::before, .era:nth-child(even)::before { left: 4px; right: auto; }
+  }
+
+  /* 趣味档案条 */
+  .archive {
+    background: var(--deep);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 34px 36px;
+    margin: 50px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 26px;
+  }
+  .archive b { color: var(--gold); font-family: var(--serif); display: block; font-size: 1.1rem; margin-bottom: 6px; }
+  .archive p { font-size: 0.85rem; opacity: .85; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="logo" href="../index.html">绯色<span>·</span>ROUGE</a>
+  <nav>
+    <a href="trends.html">趋势</a>
+    <a href="swatches.html">试色间</a>
+    <a href="history.html" class="active">编年史</a>
+    <a href="guide.html">选色指南</a>
+  </nav>
+</header>
+
+<main class="page">
+  <p class="kicker">CHRONICLE · 历史</p>
+  <h1 class="headline">口红编年史</h1>
+  <p class="dek">从美索不达米亚的宝石粉末到今天的智能调色，人类对"红唇"的痴迷跨越了五千年。这是一支口红的时间旅行。</p>
+
+  <div class="timeline">
+    <div class="era reveal">
+      <div class="year">前 3500 年</div>
+      <h3>苏美尔人的宝石唇</h3>
+      <p>两河流域的贵族女性将红色宝石碾碎，混合白铅与蜡涂抹双唇——已知最早的"口红"配方，也是身份的象征。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">前 1300 年</div>
+      <h3>埃及艳后的胭脂虫红</h3>
+      <p>克利奥帕特拉七世以胭脂虫和蚂蚁提取的深红色染唇，配合孔雀石眼影，将唇妆推向权力与美学的巅峰。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">16 世纪</div>
+      <h3>伊丽莎白一世的符号</h3>
+      <p>英国女王以蜂蜡与植物染料调制口红，红唇成为她"童贞女王"形象的一部分。口红从禁忌重回宫廷时尚。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">1884 年</div>
+      <h3>第一支现代口红诞生</h3>
+      <p>法国娇兰推出管状蜡质口红"Ne m'oubliez pas"（勿忘我），口红第一次被装进旋管，便携时代开启。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">1915 年</div>
+      <h3>金属旋管专利</h3>
+      <p>美国工程师发明金属旋升式唇膏管，口红自此可以单手优雅旋出——现代口红形态就此定型。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">1920 年代</div>
+      <h3>红唇与女性投票权</h3>
+      <p>争取选举权的女性将红唇作为抗争符号涂上街头。口红不再是闺房私物，而成为公开的权利宣言。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">1930 年代</div>
+      <h3>上海的摩登胭脂</h3>
+      <p>月份牌上的旗袍女郎抿着点唇的红，"丹唇"成为海派摩登的标志，口红随西学东渐进入中国都市生活。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">1953 年</div>
+      <h3>银幕红与黄金年代</h3>
+      <p>好莱坞黄金年代，性感偶像的标志性红唇随电影传遍世界，"涂上口红再面对一切"成为时代金句。</p>
+    </div>
+    <div class="era reveal">
+      <div class="year">21 世纪</div>
+      <h3>千人千色的时代</h3>
+      <p>从温感变色到 AI 肤色匹配，从可食用级配方到护肤级成分——口红从未如此个性，也从未如此自由。</p>
+    </div>
+  </div>
+
+  <blockquote class="pullquote">"给我一支口红，我可以征服世界。"——这句被反复引用的宣言，正是口红百年地位的注脚。</blockquote>
+
+  <div class="archive reveal">
+    <div><b>胭脂虫红</b><p>经典红色素取自胭脂虫，约 7 万只才能提取 1 磅染料，曾贵比黄金。</p></div>
+    <div><b>口红效应</b><p>经济学名词：经济低迷时期，口红等"低价奢侈品"销量反而上升。</p></div>
+    <div><b>平均消耗</b><p>据统计，一位口红爱好者一生平均"吃掉"约 1.8 公斤唇膏。</p></div>
+    <div><b>色号之最</b><p>某品牌传奇正红色号自诞生以来长销数十年，每分钟全球售出数支。</p></div>
+  </div>
+
+  <div class="two-col reveal">
+    <p class="dropcap">口红的历史，几乎就是一部微缩的女性社会史。它曾被打上"巫术"的烙印，也曾是王权的专属；它见证过街头的抗争，也装点过银幕的黄金年代。每一次社会观念的松动，几乎都能在唇色的流行变迁中找到回声。</p>
+    <p>今天，口红早已超越了"化妆品"的定义。它是晨间仪式的最后一笔，是重要场合前的心理暗示，是送人时不必言说的心意。五千年前苏美尔人碾碎红色宝石的那一刻或许不会想到，这抹红色会穿越文明，至今仍在亿万人的唇上绽放。</p>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-logo">绯 色 ROUGE</div>
+  <p>口红研究所 · 创刊号 © 2026 · <a href="../index.html">返回封面</a></p>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

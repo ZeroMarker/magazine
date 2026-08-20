@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>互动试色间 · 绯色 ROUGE</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  .lab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+    margin-top: 20px;
+  }
+  @media (max-width: 860px) { .lab { grid-template-columns: 1fr; } }
+
+  /* ---------- 唇部预览 ---------- */
+  .lips-stage {
+    background: linear-gradient(160deg, #f7dfc8, #eeC9a8);
+    border-radius: 12px;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 90px;
+    box-shadow: inset 0 0 60px rgba(160,110,70,.25);
+  }
+  .lips {
+    width: 260px; height: 130px;
+    position: relative;
+    transition: all .5s ease;
+    filter: drop-shadow(0 14px 22px rgba(0,0,0,.3));
+  }
+  .lip-upper, .lip-lower {
+    position: absolute; left: 0; width: 100%;
+    background: var(--lip, #c41e3a);
+    transition: background .5s ease;
+  }
+  .lip-upper {
+    top: 0; height: 46%;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    clip-path: polygon(0 100%, 12% 40%, 30% 8%, 50% 34%, 70% 8%, 88% 40%, 100% 100%);
+  }
+  .lip-lower {
+    bottom: 0; height: 58%;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  }
+  .lips.glossy .lip-lower::after {
+    content: '';
+    position: absolute; top: 18%; left: 22%;
+    width: 34%; height: 22%;
+    background: rgba(255,255,255,.5);
+    border-radius: 50%;
+    filter: blur(6px);
+  }
+  .lips.matte { filter: drop-shadow(0 14px 22px rgba(0,0,0,.3)) saturate(.92); }
+
+  .shade-info { text-align: center; margin-top: 24px; }
+  .shade-info h3 { font-family: var(--serif); font-size: 1.5rem; }
+  .shade-info .code { color: var(--gold); letter-spacing: 0.25em; font-size: 0.8rem; margin: 4px 0 10px; }
+  .shade-info p { font-size: 0.9rem; color: var(--grey); max-width: 420px; margin: 0 auto; }
+
+  .finish-switch { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
+  .finish-btn {
+    border: 1px solid var(--gold); background: transparent;
+    color: var(--rouge); padding: 6px 20px; border-radius: 999px;
+    cursor: pointer; font-size: 0.8rem; letter-spacing: 0.15em;
+    transition: all .3s;
+  }
+  .finish-btn.on { background: var(--rouge); color: #fff; border-color: var(--rouge); }
+
+  /* ---------- 色卡 ---------- */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 480px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+  .chip {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+    position: relative;
+  }
+  .chip:hover { transform: scale(1.08); }
+  .chip.on { border-color: var(--gold); box-shadow: 0 8px 20px rgba(92,10,30,.35); transform: scale(1.08); }
+  .chip span {
+    position: absolute; bottom: -22px; left: 0; right: 0;
+    font-size: 0.68rem; text-align: center; color: var(--grey);
+    white-space: nowrap; overflow: hidden;
+  }
+  .palette-wrap { padding-bottom: 26px; }
+
+  .tip-box {
+    margin-top: 34px;
+    background: #fff;
+    border-left: 4px solid var(--gold);
+    padding: 20px 24px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .tip-box b { color: var(--rouge); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="logo" href="../index.html">绯色<span>·</span>ROUGE</a>
+  <nav>
+    <a href="trends.html">趋势</a>
+    <a href="swatches.html" class="active">试色间</a>
+    <a href="history.html">编年史</a>
+    <a href="guide.html">选色指南</a>
+  </nav>
+</header>
+
+<main class="page">
+  <p class="kicker">SWATCH LAB · 试色</p>
+  <h1 class="headline">互动试色间</h1>
+  <p class="dek">点击右侧色卡，左侧"模特唇"将实时呈现上唇效果；切换质地按钮，感受哑光与镜面的双重人格。</p>
+
+  <div class="lab">
+    <!-- 预览区 -->
+    <div>
+      <div class="lips-stage">
+        <div class="lips glossy" id="lips">
+          <div class="lip-upper"></div>
+          <div class="lip-lower"></div>
+        </div>
+      </div>
+      <div class="shade-info">
+        <h3 id="shadeName">经典正红</h3>
+        <div class="code" id="shadeCode">ROUGE No.01 · #C41E3A</div>
+        <p id="shadeDesc">蓝调正红，显白不挑皮，正式场合的气场担当。</p>
+      </div>
+      <div class="finish-switch">
+        <button class="finish-btn" data-finish="matte">哑光 MATTE</button>
+        <button class="finish-btn on" data-finish="glossy">镜面 GLOSSY</button>
+      </div>
+    </div>
+
+    <!-- 色卡区 -->
+    <div>
+      <div class="palette-wrap">
+        <div class="palette" id="palette"></div>
+      </div>
+      <div class="tip-box">
+        <b>试色小贴士：</b>屏幕显色受显示器影响，实际妆效请以专柜试色为准。
+        建议素颜或带妆状态下，在下唇中央点涂后抿开，观察自然光下的显色与衬肤效果。
+      </div>
+      <div class="tip-box">
+        <b>质地说明：</b>哑光（MATTE）显色浓郁、持久不拔干；镜面（GLOSSY）水光通透、视觉丰唇。
+        同一色号在两种质地下的气质截然不同，不妨都试试。
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="foot-logo">绯 色 ROUGE</div>
+  <p>口红研究所 · 创刊号 © 2026 · <a href="../index.html">返回封面</a></p>
+</footer>
+
+<script>
+  // 12 款色号数据
+  const SHADES = [
+    { name: '经典正红',   code: 'ROUGE No.01', hex: '#C41E3A', desc: '蓝调正红，显白不挑皮，正式场合的气场担当。' },
+    { name: '枫叶砖红',   code: 'ROUGE No.02', hex: '#B3392E', desc: '秋冬氛围感天花板，黄皮友好的暖调砖红。' },
+    { name: '豆沙玫瑰',   code: 'ROUGE No.03', hex: '#C1666B', desc: '通勤首选 MLBB 色，温柔得体不张扬。' },
+    { name: '奶咖裸棕',   code: 'ROUGE No.04', hex: '#B08968', desc: '伪素颜神器，低饱和奶咖棕，日常百搭。' },
+    { name: '微醺浆果',   code: 'ROUGE No.05', hex: '#722F37', desc: '红酒渍般的莓果色，复古画报的微醺感。' },
+    { name: '蜜糖珊瑚',   code: 'ROUGE No.06', hex: '#FF7F66', desc: '春夏元气担当，果汁感十足的橘粉珊瑚。' },
+    { name: '复古姨妈',   code: 'ROUGE No.07', hex: '#5C0A1E', desc: '深酒红，冷艳高级，晚宴压场专用色。' },
+    { name: '蜜桃乌龙',   code: 'ROUGE No.08', hex: '#E8A0A0', desc: '奶雾粉橘，少女感与茶系温柔的混合体。' },
+    { name: '番茄红',     code: 'ROUGE No.09', hex: '#E0432F', desc: '熟透番茄的鲜亮橘红，活泼显气色。' },
+    { name: '干枯玫瑰',   code: 'ROUGE No.10', hex: '#A9667B', desc: '灰调玫瑰，清冷疏离的氛围感美人色。' },
+    { name: '栗子红棕',   code: 'ROUGE No.11', hex: '#7C3F2E', desc: '焦糖栗子融入红棕，秋日毛衣绝配。' },
+    { name: '樱桃酒渍',   code: 'ROUGE No.12', hex: '#8E2244', desc: '咬下一口黑樱桃，甜酷少女的显白秘密。' },
+  ];
+
+  const palette = document.getElementById('palette');
+  const lips = document.getElementById('lips');
+  const nameEl = document.getElementById('shadeName');
+  const codeEl = document.getElementById('shadeCode');
+  const descEl = document.getElementById('shadeDesc');
+
+  SHADES.forEach((s, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (i === 0 ? ' on' : '');
+    chip.style.background = `linear-gradient(135deg, ${s.hex}, ${shade(s.hex, -18)})`;
+    chip.innerHTML = `<span>${s.name}</span>`;
+    chip.title = s.name;
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+      lips.style.setProperty('--lip', s.hex);
+      nameEl.textContent = s.name;
+      codeEl.textContent = `${s.code} · ${s.hex.toUpperCase()}`;
+      descEl.textContent = s.desc;
+    });
+    palette.appendChild(chip);
+  });
+
+  // 颜色加深工具
+  function shade(hex, amt) {
+    const n = parseInt(hex.slice(1), 16);
+    const f = v => Math.max(0, Math.min(255, v + amt));
+    return '#' + [n >> 16, (n >> 8) & 255, n & 255].map(v => f(v).toString(16).padStart(2, '0')).join('');
+  }
+
+  // 质地切换
+  document.querySelectorAll('.finish-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.finish-btn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      lips.classList.toggle('glossy', btn.dataset.finish === 'glossy');
+      lips.classList.toggle('matte', btn.dataset.finish === 'matte');
+    });
+  });
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

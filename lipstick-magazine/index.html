@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>绯色 ROUGE · 口红杂志 | 创刊号</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- 封面 ---------- */
+  .cover {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 75% 20%, rgba(196,30,58,.35), transparent 55%),
+      linear-gradient(160deg, #2b0a12 0%, #5c0a1e 55%, #9e1b32 100%);
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5vw;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    border-bottom: 1px solid rgba(201,169,110,.35);
+  }
+
+  .cover-title {
+    text-align: center;
+    padding: 6vh 5vw 0;
+  }
+
+  .cover-title h1 {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 14vw, 10rem);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    background: linear-gradient(to bottom, #f3e2c7, var(--gold) 60%, #8a6a35);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+
+  .cover-title .en {
+    letter-spacing: 1.1em;
+    text-indent: 1.1em;
+    color: var(--gold-light);
+    font-size: clamp(0.9rem, 2.4vw, 1.4rem);
+    margin-top: 10px;
+  }
+
+  .cover-title .issue {
+    margin-top: 18px;
+    display: inline-block;
+    border: 1px solid var(--gold);
+    padding: 6px 26px;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    border-radius: 999px;
+  }
+
+  /* CSS 口红 */
+  .lipstick-stage {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(20px, 6vw, 70px);
+    padding: 40px 5vw 0;
+    min-height: 300px;
+  }
+
+  .lipstick { display: flex; flex-direction: column; align-items: center; transition: transform .4s ease; }
+  .lipstick:hover { transform: translateY(-14px); }
+
+  .bullet {
+    width: 34px;
+    height: 74px;
+    border-radius: 17px 17px 4px 4px / 30px 30px 4px 4px;
+    position: relative;
+    box-shadow: inset -8px 0 12px rgba(0,0,0,.35), inset 6px 0 10px rgba(255,255,255,.25);
+  }
+  .bullet::after { /* 斜切膏体尖 */
+    content: '';
+    position: absolute;
+    top: -16px; left: 0;
+    width: 34px; height: 24px;
+    background: inherit;
+    clip-path: polygon(0 100%, 0 30%, 100% 0, 100% 100%);
+    filter: brightness(1.08);
+  }
+
+  .ferrule { width: 40px; height: 22px; background: linear-gradient(to right, #8a6a35, var(--gold), #f3e2c7, var(--gold), #8a6a35); }
+  .case {
+    width: 46px; height: 92px;
+    background: linear-gradient(to right, #111, #3a3a3a 30%, #0a0a0a 60%, #222);
+    border-radius: 6px 6px 10px 10px;
+    box-shadow: 0 18px 30px rgba(0,0,0,.5);
+  }
+  .case.gold { background: linear-gradient(to right, #6b5020, var(--gold) 35%, #f3e2c7 50%, var(--gold) 65%, #6b5020); }
+
+  .lipstick:nth-child(2) { animation: float 5s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-10px); } }
+
+  /* 封面标语（cover lines） */
+  .cover-lines {
+    position: absolute;
+    font-family: var(--serif);
+    text-align: left;
+  }
+  .cl-left { left: 5vw; top: 34%; }
+  .cl-right { right: 5vw; top: 40%; text-align: right; }
+  .cover-lines h3 { font-size: clamp(1.1rem, 2.6vw, 1.8rem); color: var(--gold-light); font-weight: 700; }
+  .cover-lines p { font-size: 0.85rem; color: rgba(250,246,240,.75); letter-spacing: 0.15em; margin-top: 4px; }
+
+  /* 条形码 */
+  .barcode {
+    position: absolute;
+    bottom: 26px; left: 5vw;
+    width: 110px; height: 52px;
+    background: repeating-linear-gradient(to right,
+      #fff 0 2px, transparent 2px 4px, #fff 4px 7px, transparent 7px 9px,
+      #fff 9px 10px, transparent 10px 13px, #fff 13px 16px, transparent 16px 18px);
+    background-color: var(--cream);
+    padding: 6px;
+  }
+  .barcode small { position: absolute; bottom: -18px; left: 0; color: var(--gold-light); font-size: 0.65rem; letter-spacing: 0.2em; }
+
+  .enter-btn {
+    position: absolute;
+    bottom: 30px; right: 5vw;
+    padding: 14px 38px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.4em;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    transition: all .35s;
+    background: rgba(0,0,0,.25);
+    backdrop-filter: blur(4px);
+  }
+  .enter-btn:hover { background: var(--gold); color: var(--deep); box-shadow: 0 0 40px rgba(201,169,110,.5); }
+
+  @media (max-width: 760px) {
+    .cover-lines { display: none; }
+  }
+
+  /* ---------- 目录 ---------- */
+  .toc { background: var(--cream); }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 26px;
+    margin-top: 40px;
+  }
+  .toc-card {
+    background: #fff;
+    border: 1px solid #ece2d2;
+    border-top: 5px solid var(--rouge);
+    padding: 30px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform .3s, box-shadow .3s;
+    position: relative;
+  }
+  .toc-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(92,10,30,.15); }
+  .toc-card .num {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .toc-card h3 { font-family: var(--serif); font-size: 1.3rem; margin: 14px 0 8px; }
+  .toc-card p { font-size: 0.88rem; color: var(--grey); }
+  .toc-card .arrow { position: absolute; right: 22px; bottom: 20px; color: var(--rouge); font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<!-- ================= 封面 ================= -->
+<section class="cover">
+  <div class="cover-top">
+    <span>ISSUE NO.001</span>
+    <span>2026 春季刊</span>
+    <span>定价 ¥30</span>
+  </div>
+
+  <div class="cover-title">
+    <h1>绯 色</h1>
+    <div class="en">R O U G E</div>
+    <div class="issue">口 红 研 究 所 · 创 刊 号</div>
+  </div>
+
+  <div class="cover-lines cl-left">
+    <h3>2026 唇色趋势报告</h3>
+    <p>正红回归 · 裸棕当道</p>
+    <br>
+    <h3>传奇色号档案</h3>
+    <p>一支口红的前世今生</p>
+  </div>
+  <div class="cover-lines cl-right">
+    <h3>互动试色间</h3>
+    <p>12 款人气色号实测</p>
+    <br>
+    <h3>选色完全指南</h3>
+    <p>找到属于你的本命红</p>
+  </div>
+
+  <div class="lipstick-stage">
+    <div class="lipstick">
+      <div class="bullet" style="background:#c41e3a"></div>
+      <div class="ferrule"></div>
+      <div class="case"></div>
+    </div>
+    <div class="lipstick">
+      <div class="bullet" style="background:#8e3b46; height:88px"></div>
+      <div class="ferrule"></div>
+      <div class="case gold"></div>
+    </div>
+    <div class="lipstick">
+      <div class="bullet" style="background:#5c0a1e; height:66px"></div>
+      <div class="ferrule"></div>
+      <div class="case"></div>
+    </div>
+  </div>
+
+  <div class="barcode"><small>ISSN 2026-0001</small></div>
+  <a class="enter-btn" href="#toc">翻开杂志</a>
+</section>
+
+<!-- ================= 目录 ================= -->
+<section class="toc page" id="toc">
+  <p class="kicker">CONTENTS</p>
+  <h2 class="headline">本期目录</h2>
+  <p class="dek">从色号趋势到百年口红史，从互动试色到选色指南——关于口红的一切，从这一页开始。</p>
+
+  <div class="toc-grid">
+    <a class="toc-card reveal" href="pages/trends.html">
+      <div class="num">01</div>
+      <h3>唇色趋势报告</h3>
+      <p>2026 春夏五大流行色：正红、裸棕、浆果、珊瑚与镜面水光。</p>
+      <span class="arrow">→</span>
+    </a>
+    <a class="toc-card reveal" href="pages/swatches.html">
+      <div class="num">02</div>
+      <h3>互动试色间</h3>
+      <p>点击色卡，实时预览 12 款人气色号的上唇效果与质地解析。</p>
+      <span class="arrow">→</span>
+    </a>
+    <a class="toc-card reveal" href="pages/history.html">
+      <div class="num">03</div>
+      <h3>口红编年史</h3>
+      <p>从古埃及的胭脂虫到现代实验室，一支口红的五千年旅程。</p>
+      <span class="arrow">→</span>
+    </a>
+    <a class="toc-card reveal" href="pages/guide.html">
+      <div class="num">04</div>
+      <h3>选色完全指南</h3>
+      <p>肤色 × 色调 × 场合，三步找到你的本命色号，附护唇手册。</p>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">绯 色 ROUGE</div>
+  <p>口红研究所 · 创刊号 © 2026</p>
+  <p style="margin-top:8px"><a href="../index.html">返回排版项目首页</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

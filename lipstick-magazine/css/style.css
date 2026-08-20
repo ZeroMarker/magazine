@@ -1,0 +1,183 @@
+/* ============================================================
+   《绯色 ROUGE》口红杂志 · 全局样式
+   色彩系统：绯红 / 酒红 / 鎏金 / 米白
+   ============================================================ */
+
+:root {
+  --rouge: #9e1b32;
+  --crimson: #c41e3a;
+  --wine: #5c0a1e;
+  --deep: #2b0a12;
+  --gold: #c9a96e;
+  --gold-light: #e8d5b7;
+  --cream: #faf6f0;
+  --paper: #f5efe6;
+  --ink: #1a1a1a;
+  --grey: #8a7f78;
+  --serif: 'Noto Serif SC', 'Songti SC', serif;
+  --sans: 'Noto Sans SC', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.8;
+}
+
+/* ---------- 顶部刊头 ---------- */
+.masthead {
+  background: var(--deep);
+  color: var(--cream);
+  padding: 14px 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.masthead .logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.masthead .logo span { color: var(--crimson); }
+
+.masthead nav { display: flex; gap: 28px; }
+
+.masthead nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+  transition: color .3s, opacity .3s;
+}
+
+.masthead nav a:hover,
+.masthead nav a.active { color: var(--gold); opacity: 1; }
+
+/* ---------- 通用版式 ---------- */
+.page { max-width: 1100px; margin: 0 auto; padding: 60px 5vw 80px; }
+
+.kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  color: var(--rouge);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.headline {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.dek {
+  font-size: 1.05rem;
+  color: var(--grey);
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--gold);
+  margin: 40px 0;
+  position: relative;
+}
+
+.rule::after {
+  content: '❦';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cream);
+  padding: 0 14px;
+  color: var(--gold);
+}
+
+/* 首字下沉 */
+.dropcap::first-letter {
+  font-family: var(--serif);
+  font-size: 3.6em;
+  font-weight: 900;
+  float: left;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--rouge);
+}
+
+/* 双栏正文 */
+.two-col { columns: 2; column-gap: 48px; column-rule: 1px solid #e5dccd; }
+.two-col p { margin-bottom: 1.2em; text-align: justify; break-inside: avoid; }
+
+@media (max-width: 760px) { .two-col { columns: 1; } }
+
+/* 引语 */
+.pullquote {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--rouge);
+  text-align: center;
+  max-width: 700px;
+  margin: 48px auto;
+  padding: 0 24px;
+  position: relative;
+}
+
+.pullquote::before,
+.pullquote::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin: 18px auto;
+}
+
+/* ---------- 页脚 ---------- */
+footer {
+  background: var(--deep);
+  color: var(--grey);
+  text-align: center;
+  padding: 40px 5vw;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+footer .foot-logo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+footer a { color: var(--gold-light); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+
+/* ---------- 通用动效 ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible { opacity: 1; transform: none; }

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>选色完全指南 · 绯色 ROUGE</title>
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* 三步流程 */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin: 36px 0; }
+  .step {
+    background: #fff; border: 1px solid #ece2d2; border-radius: 10px;
+    padding: 30px 26px; position: relative;
+  }
+  .step .no {
+    position: absolute; top: -18px; left: 22px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--rouge); color: #fff;
+    font-family: var(--serif); font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 14px rgba(158,27,50,.35);
+  }
+  .step h3 { font-family: var(--serif); margin: 8px 0 10px; font-size: 1.15rem; }
+  .step p { font-size: 0.9rem; color: #555; }
+
+  /* 肤色对照表 */
+  .tone-table { width: 100%; border-collapse: collapse; margin: 30px 0; background: #fff; font-size: 0.92rem; }
+  .tone-table th, .tone-table td { padding: 14px 18px; border: 1px solid #ece2d2; text-align: left; }
+  .tone-table th { background: var(--deep); color: var(--gold-light); font-weight: 500; letter-spacing: 0.1em; }
+  .tone-table td:first-child { font-weight: 700; white-space: nowrap; }
+  .dots { display: inline-flex; gap: 6px; vertical-align: middle; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); }
+
+  /* 质地卡片 */
+  .finishes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin: 30px 0; }
+  .finish-card {
+    border: 1px solid #ece2d2; background: #fff; padding: 22px;
+    border-radius: 10px; text-align: center; transition: transform .3s;
+  }
+  .finish-card:hover { transform: translateY(-5px); }
+  .finish-card .texture {
+    width: 74px; height: 74px; margin: 0 auto 14px; border-radius: 50%;
+  }
+  .finish-card h4 { font-family: var(--serif); margin-bottom: 6px; }
+  .finish-card p { font-size: 0.82rem; color: var(--grey); }
+
+  /* 护唇步骤 */
+  .care { counter-reset: care; max-width: 680px; margin: 30px 0; }
+  .care li {
+    list-style: none; counter-increment: care;
+    padding: 16px 0 16px 56px; position: relative;
+    border-bottom: 1px dashed #e0d4c0; font-size: 0.95rem;
+  }
+  .care li::before {
+    content: counter(care, decimal-leading-zero);
+    position: absolute; left: 0; top: 16px;
+    font-family: var(--serif); font-weight: 900;
+    color: var(--gold); font-size: 1.3rem;
+  }
+  .care li b { color: var(--rouge); }
+
+  h2.section {
+    font-family: var(--serif); font-size: 1.6rem; font-weight: 900;
+    margin: 54px 0 6px; padding-left: 16px;
+    border-left: 5px solid var(--crimson);
+  }
+  .section-dek { color: var(--grey); font-size: 0.92rem; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="logo" href="../index.html">绯色<span>·</span>ROUGE</a>
+  <nav>
+    <a href="trends.html">趋势</a>
+    <a href="swatches.html">试色间</a>
+    <a href="history.html">编年史</a>
+    <a href="guide.html" class="active">选色指南</a>
+  </nav>
+</header>
+
+<main class="page">
+  <p class="kicker">GUIDE · 指南</p>
+  <h1 class="headline">选色完全指南</h1>
+  <p class="dek">买错色号的口红，是化妆包里最常见的"美丽废物"。三步定位法 + 肤色对照表 + 护唇手册，一次讲透。</p>
+
+  <!-- 三步定位 -->
+  <h2 class="section">三步找到本命色</h2>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="no">1</div>
+      <h3>判断肤色冷暖</h3>
+      <p>观察手腕血管：偏蓝紫为冷皮，偏绿为暖皮，两者兼有是中性皮。金银首饰对比法同样适用——戴银色更好看多为冷皮。</p>
+    </div>
+    <div class="step reveal">
+      <div class="no">2</div>
+      <h3>匹配色调方向</h3>
+      <p>冷皮选蓝调（正红、浆果、玫粉），暖皮选橘棕调（砖红、珊瑚、奶咖），中性皮恭喜——基本通吃。</p>
+    </div>
+    <div class="step reveal">
+      <div class="no">3</div>
+      <h3>按场景定饱和</h3>
+      <p>通勤选低饱和豆沙、裸棕；约会选蜜桃、珊瑚；正式场合上正红；晚宴交给酒红与浆果。</p>
+    </div>
+  </div>
+
+  <!-- 肤色对照表 -->
+  <h2 class="section">肤色 × 色号对照表</h2>
+  <p class="section-dek">圆点为本刊推荐色方向，具体请移步<a href="swatches.html">互动试色间</a>实测。</p>
+  <table class="tone-table reveal">
+    <tr><th>肤色类型</th><th>推荐色系</th><th>避雷色系</th><th>代表色</th></tr>
+    <tr>
+      <td>冷白皮</td>
+      <td>蓝调正红、浆果、玫粉、樱桃红</td>
+      <td>过橘的南瓜色（易显荧光）</td>
+      <td><span class="dots"><i class="dot" style="background:#C41E3A"></i><i class="dot" style="background:#722F37"></i><i class="dot" style="background:#8E2244"></i></span></td>
+    </tr>
+    <tr>
+      <td>暖黄皮</td>
+      <td>砖红、枫叶红、奶咖棕、珊瑚</td>
+      <td>冷调玫粉、浅裸粉（易显暗沉）</td>
+      <td><span class="dots"><i class="dot" style="background:#B3392E"></i><i class="dot" style="background:#B08968"></i><i class="dot" style="background:#FF7F66"></i></span></td>
+    </tr>
+    <tr>
+      <td>小麦色</td>
+      <td>红棕、姨妈色、焦糖橘、金属红</td>
+      <td>过浅的粉裸色（易显病态）</td>
+      <td><span class="dots"><i class="dot" style="background:#7C3F2E"></i><i class="dot" style="background:#5C0A1E"></i><i class="dot" style="background:#E0432F"></i></span></td>
+    </tr>
+    <tr>
+      <td>中性皮</td>
+      <td>几乎通吃，重点看场合与妆容</td>
+      <td>无明确雷区</td>
+      <td><span class="dots"><i class="dot" style="background:#C1666B"></i><i class="dot" style="background:#A9667B"></i><i class="dot" style="background:#E8A0A0"></i></span></td>
+    </tr>
+  </table>
+
+  <!-- 质地解析 -->
+  <h2 class="section">四大质地解析</h2>
+  <div class="finishes">
+    <div class="finish-card reveal">
+      <div class="texture" style="background:radial-gradient(circle at 35% 30%, #d94b60, #9e1b32)"></div>
+      <h4>哑光 Matte</h4>
+      <p>显色最浓郁，持久度最高。妆前需做好唇部打底，适合正式场合。</p>
+    </div>
+    <div class="finish-card reveal">
+      <div class="texture" style="background:radial-gradient(circle at 35% 30%, #e88, #c1666b)"></div>
+      <h4>缎光 Satin</h4>
+      <p>哑光与滋润之间的平衡派，微微光泽感，通勤万能。</p>
+    </div>
+    <div class="finish-card reveal">
+      <div class="texture" style="background:radial-gradient(circle at 35% 30%, #ffb3a0, #ff7f66)"></div>
+      <h4>镜面 Glossy</h4>
+      <p>水光玻璃唇，视觉丰唇效果一流，需勤补妆。</p>
+    </div>
+    <div class="finish-card reveal">
+      <div class="texture" style="background:radial-gradient(circle at 35% 30%, #c9a, #a9667b)"></div>
+      <h4>丝绒 Velvet</h4>
+      <p>柔雾妆效如天鹅绒，比哑光滋润，氛围感首选。</p>
+    </div>
+  </div>
+
+  <!-- 护唇手册 -->
+  <h2 class="section">口红之前的护唇手册</h2>
+  <ol class="care reveal">
+    <li><b>温和去角质。</b>每周 1–2 次用温热的湿毛巾或唇部磨砂轻揉，切忌撕扯干皮。</li>
+    <li><b>睡前厚敷唇膜。</b>含神经酰胺、角鲨烷的唇膜夜间修护，晨起双唇嘭弹。</li>
+    <li><b>妆前润唇打底。</b>上妆前先涂润唇膏，待吸收后用纸巾轻压，再涂口红更服帖。</li>
+    <li><b>彻底卸妆。</b>眼唇专用卸妆液湿敷 10 秒再擦拭，色素沉淀多源于卸妆不净。</li>
+    <li><b>日间防晒。</b>选择带 SPF 的润唇膏，紫外线是唇色暗沉的隐形推手。</li>
+  </ol>
+
+  <blockquote class="pullquote">最好的色号，永远是让你涂上就想微笑的那一支。</blockquote>
+</main>
+
+<footer>
+  <div class="foot-logo">绯 色 ROUGE</div>
+  <p>口红研究所 · 创刊号 © 2026 · <a href="../index.html">返回封面</a></p>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

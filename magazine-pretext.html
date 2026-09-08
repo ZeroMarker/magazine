@@ -521,11 +521,21 @@ const ms=(txt,font,w,lh_)=>{
   catch(e){return null}
 };
 
-let blk=0,tln=0,tch=0;
-const db=()=>{$('dBlk').textContent=blk;$('dLn').textContent=tln;$('dCh').textContent=tch};
+const stats=new Map();
+const db=()=>{
+  const total=Array.from(stats.values()).reduce((a,s)=>({
+    blocks:a.blocks+s.blocks,lines:a.lines+s.lines,chars:a.chars+s.chars
+  }),{blocks:0,lines:0,chars:0});
+  $('dBlk').textContent=total.blocks;$('dLn').textContent=total.lines;$('dCh').textContent=total.chars
+};
+const resetStats=id=>{stats.set(id,{blocks:0,lines:0,chars:0});db()};
+const recordStats=(id,r,txt)=>{
+  const s=stats.get(id);s.blocks++;s.lines+=r.lineCount;s.chars+=txt.length;db()
+};
 
 // ── 1. 通栏 ──
 function s1(){
+  resetStats(1);
   const el=$('s1body'),fs=parseInt($('s1fs').value);
   $('s1fsv').textContent=fs+'px';
   el.style.fontSize=fs+'px';
@@ -537,7 +547,7 @@ function s1(){
       $('s1ch').textContent=txt.length;
       const min=Math.max(1,Math.round(txt.length/250));
       $('s1rt').textContent=`约 ${min} 分钟`;
-      blk++;tln+=r.lineCount;tch+=txt.length;db()
+      recordStats(1,r,txt)
     }
   }
 }
@@ -545,6 +555,7 @@ $('s1fs').addEventListener('input',s1);
 
 // ── 2. 双栏 ──
 function s2(){
+  resetStats(2);
   const n=parseInt($('s2col').value);
   $('s2colv').textContent=n+' 栏';
   $('s2wrap').style.columnCount=n;
@@ -554,11 +565,11 @@ function s2(){
   if(cw>0){
     const r=ms(all,f,cw,l);
     if(r){
-      $('s2lc').textContent=r.lineCount*n;
-      $('s2ppc').textContent=Math.round(r.lineCount);
+      $('s2lc').textContent=r.lineCount;
+      $('s2ppc').textContent=Math.round(r.lineCount/n);
       const min=Math.max(1,Math.round(all.length/250));
       $('s2rt').textContent=`约 ${min} 分钟`;
-      blk++;tln+=r.lineCount*n;tch+=all.length;db()
+      recordStats(2,r,all)
     }
   }
 }
@@ -566,6 +577,7 @@ $('s2col').addEventListener('input',s2);
 
 // ── 3. 三栏 ──
 function s3(){
+  resetStats(3);
   const n=parseInt($('s3col').value);
   $('s3colv').textContent=n+' 栏';
   $('s3wrap').style.columnCount=n;
@@ -575,10 +587,10 @@ function s3(){
   if(cw>0){
     const r=ms(all,f,cw,l);
     if(r){
-      $('s3lc').textContent=r.lineCount*n;
-      $('s3ppc').textContent=Math.round(r.lineCount);
+      $('s3lc').textContent=r.lineCount;
+      $('s3ppc').textContent=Math.round(r.lineCount/n);
       $('s3cw').textContent=Math.round(cw);
-      blk++;tln+=r.lineCount*n;tch+=all.length;db()
+      recordStats(3,r,all)
     }
   }
 }
@@ -586,6 +598,7 @@ $('s3col').addEventListener('input',s3);
 
 // ── 4. 绕排 ──
 function s4(){
+  resetStats(4);
   const side=$('s4side').value,iw=parseInt($('s4w').value);
   $('s4wv').textContent=iw+'px';
   const img=$('s4img');
@@ -595,14 +608,18 @@ function s4(){
 
   const el=$('s4body'),txt=el.textContent.replace(/\s+/g,' ').trim();
   const f=gf(el),l=lh(el);
-  // estimate wrap width: container minus image width + margin gap
-  const wrap=$('s4wrap'),ww=wrap.clientWidth-72-(side==='left'?iw+24:0); // 72=padding, 24=gap
+  // Estimate the width beside the float; on mobile the image is above the text.
+  const wrap=$('s4wrap'),ws=getComputedStyle(wrap),is=getComputedStyle(img);
+  const inset=(parseFloat(ws.paddingLeft)||0)+(parseFloat(ws.paddingRight)||0);
+  const imageSpace=is.cssFloat==='none'?0:img.getBoundingClientRect().width+
+    (parseFloat(is.marginLeft)||0)+(parseFloat(is.marginRight)||0);
+  const ww=wrap.clientWidth-inset-imageSpace;
   if(ww>100){
     const r=ms(txt,f,ww,l);
     if(r){
       $('s4lc').textContent=r.lineCount;$('s4ht').textContent=Math.round(r.height);
       $('s4ch').textContent=txt.length;
-      blk++;tln+=r.lineCount;tch+=txt.length;db()
+      recordStats(4,r,txt)
     }
   }
 }
@@ -611,21 +628,22 @@ $('s4w').addEventListener('input',s4);
 
 // ── 5. 交错 ──
 function s5(){
+  resetStats(5);
   const fs=parseInt($('s5fs').value);
   $('s5fsv').textContent=fs+'px';
   let th=0;
   $('s5stagger').querySelectorAll('.stag-p').forEach(el=>{
     el.style.fontSize=fs+'px';
     const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
-    if(w>0){const r=ms(txt,f,w,l);if(r)th+=r.height}
+    if(w>0){const r=ms(txt,f,w,l);if(r){th+=r.height;recordStats(5,r,txt)}}
   });
   $('s5th').textContent=Math.round(th);
-  blk+=3;db()
 }
 $('s5fs').addEventListener('input',s5);
 
 // ── 6. 网格 ──
 function s6(){
+  resetStats(6);
   const fs=parseInt($('s6fs').value);
   $('s6fsv').textContent=fs+'px';
   $('s6grid').querySelectorAll('.mp').forEach(el=>el.style.fontSize=fs+'px');
@@ -634,15 +652,15 @@ function s6(){
   ids.forEach(id=>{
     const el=$(id);if(!el)return;
     const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
-    if(w>0){const r=ms(txt,f,w,l);if(r){ml=Math.max(ml,r.lineCount);th+=r.height}}
+    if(w>0){const r=ms(txt,f,w,l);if(r){ml=Math.max(ml,r.lineCount);th+=r.height;recordStats(6,r,txt)}}
   });
   $('s6ml').textContent=ml;$('s6th').textContent=Math.round(th);
-  blk+=ids.length;db()
 }
 $('s6fs').addEventListener('input',s6);
 
 // ── 7. 自由 ──
 function s7(){
+  resetStats(7);
   const scale=parseInt($('s7scale').value)/100;
   $('s7scalev').textContent=Math.round(scale*100)+'%';
   let tot=0,cnt=0;
@@ -652,16 +670,15 @@ function s7(){
     const txt=el.textContent.replace(/\s+/g,' ').trim(),f=gf(el),l=lh(el);
     // estimate at ~200px width for free elements
     const r=ms(txt,f,220,l);
-    if(r){tot+=r.lineCount;cnt++}
+    if(r){tot+=r.lineCount;cnt++;recordStats(7,r,txt)}
   }
   $('s7lc').textContent=tot;
   $('s7avg').textContent=cnt?(tot/cnt).toFixed(1):'-';
-  blk+=cnt;tln+=tot;db()
 }
 $('s7scale').addEventListener('input',s7);
 
 // ── All ──
-function all(){blk=0;tln=0;tch=0;s1();s2();s3();s4();s5();s6();s7()}
+function all(){s1();s2();s3();s4();s5();s6();s7()}
 let rt;
 window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(all,250)});
 document.fonts.ready.then(()=>setTimeout(all,120));

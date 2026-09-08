@@ -81,6 +81,7 @@
   }
   @media (max-width: 480px) { .palette { grid-template-columns: repeat(3, 1fr); } }
   .chip {
+    display: block; width: 100%; padding: 0; font: inherit;
     aspect-ratio: 1;
     border-radius: 10px;
     cursor: pointer;
@@ -88,6 +89,7 @@
     transition: transform .25s, border-color .25s, box-shadow .25s;
     position: relative;
   }
+  .chip:focus-visible { outline: 3px solid var(--rouge); outline-offset: 5px; }
   .chip:hover { transform: scale(1.08); }
   .chip.on { border-color: var(--gold); box-shadow: 0 8px 20px rgba(92,10,30,.35); transform: scale(1.08); }
   .chip span {
@@ -191,14 +193,20 @@
   const descEl = document.getElementById('shadeDesc');
 
   SHADES.forEach((s, i) => {
-    const chip = document.createElement('div');
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.setAttribute('aria-pressed', String(i === 0));
     chip.className = 'chip' + (i === 0 ? ' on' : '');
     chip.style.background = `linear-gradient(135deg, ${s.hex}, ${shade(s.hex, -18)})`;
     chip.innerHTML = `<span>${s.name}</span>`;
     chip.title = s.name;
     chip.addEventListener('click', () => {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('on');
+        c.setAttribute('aria-pressed', 'false');
+      });
       chip.classList.add('on');
+      chip.setAttribute('aria-pressed', 'true');
       lips.style.setProperty('--lip', s.hex);
       nameEl.textContent = s.name;
       codeEl.textContent = `${s.code} · ${s.hex.toUpperCase()}`;

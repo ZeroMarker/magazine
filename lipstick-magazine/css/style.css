@@ -181,3 +181,8 @@ footer a:hover { color: var(--gold); }
 }
 
 .reveal.visible { opacity: 1; transform: none; }
+
+/* 减少动态效果：系统设置“减少动态效果”时关闭过渡与动画 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

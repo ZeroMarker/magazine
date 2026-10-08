@@ -9,6 +9,7 @@
 - `pretext.md` - Pretext.js 库的使用文档
 - `docs.md` - 完整项目文档和指南
 - `magazine-history.md` - 杂志排版历史与工业发展
+- `lipstick-magazine/` - 《绯色 ROUGE》口红杂志子项目（纯静态网页，打开 `lipstick-magazine/index.html`）
 
 ## 快速开始
 

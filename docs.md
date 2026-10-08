@@ -32,6 +32,7 @@
 ### 📁 项目文件
 - [README.md](README.md) - 项目简介和快速开始
 - [magazine-pretext.html](magazine-pretext.html) - 交互式排版演示
+- [lipstick-magazine/](lipstick-magazine/index.html) - 《绯色 ROUGE》口红杂志子项目
 
 ## 快速开始
 

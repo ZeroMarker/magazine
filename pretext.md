@@ -12,10 +12,10 @@ Pretext 是一个用于多行文本测量和布局的 JavaScript 库。它避免
 npm install @chenglou/pretext
 ```
 
-或通过 CDN 引入：
+或通过 CDN 引入（以下示例对应 0.0.9 版本）：
 
 ```javascript
-import { prepare, layout } from 'https://esm.sh/@chenglou/pretext@0.0.4'
+import { prepare, layout } from 'https://esm.sh/@chenglou/pretext@0.0.9'
 ```
 
 ## 基本用法
@@ -173,7 +173,7 @@ type LayoutCursor = {
 在 `magazine-pretext.html` 中，Pretext 用于动态测量不同排版布局的文本：
 
 ```javascript
-import { prepare as p_, layout as l_ } from 'https://esm.sh/@chenglou/pretext@0.0.4'
+import { prepare as p_, layout as l_ } from 'https://esm.sh/@chenglou/pretext@0.0.9'
 
 // 测量函数
 const ms = (txt, font, w, lh) => {

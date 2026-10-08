@@ -5,213 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>杂志排版布局 7 式 — Pretext 驱动</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Noto Sans SC',sans-serif;
-  background:#f4f4f4;color:#222;line-height:1.7
-}
-
-/* nav */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;height:54px;
-  background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
-  padding:0 36px;display:flex;align-items:center;gap:28px;
-  box-shadow:0 1px 10px rgba(0,0,0,.06);font-size:.82rem
-}
-nav .br{
-  font-family:'Playfair Display',serif;font-weight:700;
-  letter-spacing:2px;color:#c9a96e;margin-right:auto
-}
-nav a{text-decoration:none;color:#555;transition:color .2s}
-nav a:hover{color:#c9a96e}
-
-/* section */
-.sc{
-  min-height:100vh;padding:90px 48px 56px;
-  max-width:1200px;margin:0 auto 20px;
-  background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.04)
-}
-.sl{
-  font-family:'Playfair Display',serif;
-  font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
-  color:#c9a96e;margin-bottom:2px
-}
-.st{
-  font-size:1.5rem;font-weight:300;color:#999;
-  margin-bottom:28px;letter-spacing:1px
-}
-
-/* hud */
-.hud{
-  display:flex;gap:18px;align-items:center;flex-wrap:wrap;
-  background:#fafafa;padding:10px 18px;margin-bottom:22px;
-  border-radius:6px;border:1px solid #eee;
-  font-size:.8rem;color:#666
-}
-.hud label{display:flex;align-items:center;gap:8px}
-.hud input[type=range]{width:80px;cursor:pointer}
-.hud .v{font-family:monospace;color:#999;min-width:40px}
-
-/* pill */
-.pill{
-  display:inline-flex;gap:14px;font-size:.7rem;
-  font-family:'Courier New',monospace;color:#888;margin-top:14px;flex-wrap:wrap
-}
-.pill span{background:#f4f4f4;padding:2px 10px;border-radius:3px}
-.pill b{color:#c9a96e}
-
-/* dash */
-#d{
-  position:fixed;bottom:16px;right:16px;z-index:999;
-  background:rgba(26,26,46,.93);backdrop-filter:blur(8px);
-  color:#fff;padding:12px 16px;border-radius:8px;
-  font:.65rem 'Courier New',monospace;min-width:180px;
-  border:1px solid rgba(255,255,255,.08)
-}
-#d h4{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:4px}
-#d .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-#d .r:last-child{border-bottom:none}
-#d .v{color:#7bf}
-
-/* ════════════════════════════════════════
-   1. 通栏式
-   ════════════════════════════════════════ */
-.col1{max-width:720px;margin:0 auto}
-.col1-hdr{text-align:center;margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid #eee}
-.col1-cat{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px}
-.col1-h1{font-family:'Noto Serif SC',serif;font-size:2.2rem;font-weight:700;line-height:1.25;color:#111;margin-bottom:8px}
-.col1-sub{font-size:.95rem;color:#888;font-weight:300}
-.col1-body{font-size:1.05rem;line-height:2.2;color:#444}
-.col1-body p{margin-bottom:1.6em;text-indent:2em}
-.col1-body p:first-child{text-indent:0}
-
-/* ════════════════════════════════════════
-   2. 双栏式
-   ════════════════════════════════════════ */
-.two-wrap{column-gap:44px;column-rule:1px solid #eee;text-align:justify;transition:column-count .3s}
-.two-p{margin-bottom:1.4em;text-indent:2em}
-.two-p:first-child{text-indent:0}
-.dc::first-letter{
-  float:left;font-family:'Playfair Display',serif;
-  font-size:4.2rem;line-height:.8;padding-right:10px;padding-top:6px;
-  color:#c9a96e;font-weight:700
-}
-.pq{
-  column-span:all;margin:36px 0;padding:28px 40px;
-  background:#fafafa;border-left:4px solid #c9a96e;
-  font-family:'Noto Serif SC',serif;font-size:1.2rem;line-height:1.6;color:#111;position:relative
-}
-.pq::before{
-  content:'\201C';font-family:'Playfair Display',serif;
-  font-size:4.4rem;color:#c9a96e;opacity:.2;
-  position:absolute;top:2px;left:14px;line-height:1
-}
-.pq cite{display:block;margin-top:12px;font-size:.75rem;font-family:'Noto Sans SC',sans-serif;color:#999;font-style:normal}
-
-/* ════════════════════════════════════════
-   3. 三栏式
-   ════════════════════════════════════════ */
-.three-wrap{column-gap:32px;column-rule:1px solid #eee;text-align:justify;transition:column-count .3s}
-.three-p{margin-bottom:1.2em;text-indent:2em;font-size:.92rem}
-.three-p:first-child{text-indent:0}
-.three-hdr{text-align:center;margin-bottom:32px}
-.three-cat{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:8px}
-.three-h1{font-family:'Noto Serif SC',serif;font-size:1.8rem;font-weight:700;color:#111;margin-bottom:6px}
-
-/* ════════════════════════════════════════
-   4. 图文绕排
-   ════════════════════════════════════════ */
-.wrap{border:1px solid #eee;padding:36px;position:relative}
-.wrap-img{
-  float:left;width:200px;height:260px;margin:4px 24px 12px 0;
-  background:linear-gradient(135deg,#e8ddd0,#d5c5b5);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;letter-spacing:2px;color:#998;
-  shape-outside:margin-box
-}
-.wrap-img.r{float:right;margin:4px 0 12px 24px}
-.wrap-p{font-size:.95rem;line-height:2;color:#444;margin-bottom:1.2em;text-indent:2em}
-.wrap-p:first-child{text-indent:0}
-
-/* ════════════════════════════════════════
-   5. 交错对位
-   ════════════════════════════════════════ */
-.stagger{display:flex;flex-direction:column;gap:28px}
-.stag{
-  display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:240px;
-  border:1px solid #eee
-}
-.stag-img{
-  background:
-    linear-gradient(45deg,#c9a96e15,#e9456015),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23f5f5f5' width='400' height='300'/%3E%3Crect fill='%23e0d5c5' x='40' y='40' width='320' height='220' opacity='.5'/%3E%3C/svg%3E");
-  background-size:cover;background-position:center;min-height:240px
-}
-.stag-body{padding:32px 28px;display:flex;flex-direction:column;justify-content:center}
-.stag-kicker{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px}
-.stag-h3{font-family:'Noto Serif SC',serif;font-size:1.3rem;font-weight:700;color:#111;margin-bottom:10px;line-height:1.25}
-.stag-p{font-size:.88rem;color:#555;line-height:1.9}
-.stag.r{direction:rtl}
-.stag.r>*{direction:ltr}
-
-/* ════════════════════════════════════════
-   6. 模块化网格
-   ════════════════════════════════════════ */
-.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.mcell{
-  border:1px solid #eee;padding:20px;border-radius:4px;
-  background:#fcfcfc;min-height:160px;
-  display:flex;flex-direction:column
-}
-.mcell.w2{grid-column:span 2}
-.mcell.h2{grid-row:span 2}
-.mcell.accent{background:#c9a96e;color:#fff;border-color:#c9a96e}
-.mcell.accent .mp{color:rgba(255,255,255,.9)}
-.mnum{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1;opacity:.15;margin-bottom:10px}
-.mcell.accent .mnum{opacity:.25}
-.mh4{font-size:.85rem;font-weight:600;margin-bottom:8px;color:#111}
-.mcell.accent .mh4{color:#fff}
-.mp{font-size:.78rem;color:#666;line-height:1.6;flex:1}
-
-/* ════════════════════════════════════════
-   7. 自由版式
-   ════════════════════════════════════════ */
-.free{
-  position:relative;min-height:640px;border:1px solid #eee;
-  background:linear-gradient(160deg,#fafafa,#f4f4f4)
-}
-.free-el{
-  position:absolute;padding:20px 24px;max-width:320px
-}
-.free-el.hl{background:#c9a96e;color:#fff}
-.free-el.hl p{color:rgba(255,255,255,.9)}
-.free-el h4{font-family:'Noto Serif SC',serif;font-size:1.1rem;margin-bottom:6px}
-.free-el p{font-size:.85rem;color:#555;line-height:1.7}
-.free-el .ct{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:4px}
-.free-el.hl .ct{color:rgba(255,255,255,.7)}
-
-/* responsive */
-@media(max-width:900px){
-  .sc{padding:80px 20px 40px}
-  .stag,.stag.r{grid-template-columns:1fr;direction:ltr}
-  .stag-img{min-height:200px}
-  .mgrid{grid-template-columns:repeat(2,1fr)}
-  .mcell.w2{grid-column:span 2}
-  nav a:not(.br){display:none}
-  .free-el{position:static!important;max-width:none!important;border-bottom:1px solid #eee}
-}
-@media(max-width:600px){
-  .mgrid{grid-template-columns:1fr}.mcell.w2{grid-column:span 1}
-  .wrap-img{float:none!important;width:100%;margin:0 0 12px!important;height:200px}
-}
-</style>
+<link rel="stylesheet" href="css/magazine-pretext.css">
 </head>
 <body>
 
 <nav>
-  <span class="br">LAY·OUT 7</span>
+  <h1 class="br">LAY·OUT 7</h1>
   <a href="#s1">通栏</a>
   <a href="#s2">双栏</a>
   <a href="#s3">三栏</a>
@@ -226,7 +25,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s1">
   <div class="sl">Layout 01</div>
-  <h1 class="st">通栏式 · Single Column</h1>
+  <h2 class="st">通栏式 · Single Column</h2>
   <div class="hud">
     <label>正文大小 <input type="range" id="s1fs" min="14" max="26" value="17" step="1"></label>
     <span class="v" id="s1fsv">17px</span>
@@ -234,7 +33,7 @@ nav a:hover{color:#c9a96e}
   <div class="col1">
     <header class="col1-hdr">
       <div class="col1-cat">编辑手记</div>
-      <h1 class="col1-h1">编者的话</h1>
+      <h3 class="col1-h1">编者的话</h3>
       <p class="col1-sub">来自主编的问候与本期导读</p>
     </header>
     <div class="col1-body" id="s1body">
@@ -260,7 +59,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s2">
   <div class="sl">Layout 02</div>
-  <h1 class="st">双栏式 · Two Column</h1>
+  <h2 class="st">双栏式 · Two Column</h2>
   <div class="hud">
     <label>栏数 <input type="range" id="s2col" min="1" max="2" value="2" step="1"></label>
     <span class="v" id="s2colv">2 栏</span>
@@ -268,7 +67,7 @@ nav a:hover{color:#c9a96e}
   <div style="max-width:920px;margin:0 auto">
     <header style="text-align:center;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid #eee">
       <div style="font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px">深度阅读</div>
-      <h1 style="font-family:'Noto Serif SC',serif;font-size:2.4rem;font-weight:700;color:#111;margin-bottom:8px">建筑与时间的对话</h1>
+      <h3 style="font-family:'Noto Serif SC',serif;font-size:2.4rem;font-weight:700;color:#111;margin-bottom:8px">建筑与时间的对话</h3>
       <p style="font-size:.95rem;color:#888;font-weight:300">当代建筑如何在传承与创新之间寻找平衡</p>
       <div style="margin-top:16px;font-size:.8rem;color:#999">文 / 陈建安 · 摄影 / 王艺萌</div>
     </header>
@@ -296,7 +95,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s3">
   <div class="sl">Layout 03</div>
-  <h1 class="st">三栏式 · Three Column</h1>
+  <h2 class="st">三栏式 · Three Column</h2>
   <div class="hud">
     <label>栏数 <input type="range" id="s3col" min="1" max="4" value="3" step="1"></label>
     <span class="v" id="s3colv">3 栏</span>
@@ -305,7 +104,7 @@ nav a:hover{color:#c9a96e}
   <div style="max-width:960px;margin:0 auto">
     <div class="three-hdr">
       <div class="three-cat">文化观察</div>
-      <h1 class="three-h1">数字时代的阅读变迁</h1>
+      <h3 class="three-h1">数字时代的阅读变迁</h3>
       <p style="font-size:.85rem;color:#999">从纸张到屏幕，阅读形态的演变</p>
     </div>
     <div class="three-wrap" id="s3wrap" style="column-count:3">
@@ -329,7 +128,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s4">
   <div class="sl">Layout 04</div>
-  <h1 class="st">图文绕排 · Text Wrap</h1>
+  <h2 class="st">图文绕排 · Text Wrap</h2>
   <div class="hud">
     <label>图片位置 <select id="s4side">
       <option value="left">居左</option>
@@ -341,15 +140,13 @@ nav a:hover{color:#c9a96e}
   <div class="wrap" id="s4wrap">
     <div class="wrap-img" id="s4img">IMAGE</div>
     <p class="wrap-p dc" style="font-weight:600;text-indent:0;color:#111">阅读空间的演变，不仅是技术问题，更是文化问题。我们在哪里阅读，如何阅读，为什么阅读——这些问题指向了人类认知最根本的层面。</p>
-    <p class="wrap-p" id="s4body">在过去的二十年里，书店的角色发生了根本性的转变。从单纯的书刊销售场所，演变为复合型的文化空间。咖啡、文创、展览、讲座……这些元素共同构成了"第三空间"的概念——既不是家也不是办公室，而是介于二者之间的精神栖息地。
-
-独立书店的复兴是这一趋势中最引人注目的现象。与大型连锁书店不同，独立书店通常由真正热爱阅读的人经营，他们精心挑选的每一本书都体现着个人的品味和态度。这种"策展式选书"模式，让独立书店成为了城市中不可替代的文化地标。
-
-书店的空间设计也随之进化。从传统的密集书架排列，到如今注重留白和动线的设计，书店正在变得更加"好逛"。灯光、音乐、香氛——所有的感官元素都被调动起来，为阅读创造一个全方位的沉浸体验。
-
-越来越多的书店开始尝试"书店 + 住宿"的模式。在日本东京，著名的茑屋书店不仅卖书，还经营着酒店。客人们可以在入住期间随意翻阅店内的藏书，将阅读体验延伸到了私人空间。这种模式正在被全球各地的书店效仿。
-
-在中国，从成都的方所到上海的思南书局，从北京的单向空间到广州的 1200 书店，独立书店正在以各自的方式重新定义城市阅读文化。它们不仅是卖书的场所，更是一座城市的精神灯塔。</p>
+    <div id="s4body">
+      <p class="wrap-p">在过去的二十年里，书店的角色发生了根本性的转变。从单纯的书刊销售场所，演变为复合型的文化空间。咖啡、文创、展览、讲座……这些元素共同构成了"第三空间"的概念——既不是家也不是办公室，而是介于二者之间的精神栖息地。</p>
+      <p class="wrap-p">独立书店的复兴是这一趋势中最引人注目的现象。与大型连锁书店不同，独立书店通常由真正热爱阅读的人经营，他们精心挑选的每一本书都体现着个人的品味和态度。这种"策展式选书"模式，让独立书店成为了城市中不可替代的文化地标。</p>
+      <p class="wrap-p">书店的空间设计也随之进化。从传统的密集书架排列，到如今注重留白和动线的设计，书店正在变得更加"好逛"。灯光、音乐、香氛——所有的感官元素都被调动起来，为阅读创造一个全方位的沉浸体验。</p>
+      <p class="wrap-p">越来越多的书店开始尝试"书店 + 住宿"的模式。在日本东京，著名的茑屋书店不仅卖书，还经营着酒店。客人们可以在入住期间随意翻阅店内的藏书，将阅读体验延伸到了私人空间。这种模式正在被全球各地的书店效仿。</p>
+      <p class="wrap-p">在中国，从成都的方所到上海的思南书局，从北京的单向空间到广州的 1200 书店，独立书店正在以各自的方式重新定义城市阅读文化。它们不仅是卖书的场所，更是一座城市的精神灯塔。</p>
+    </div>
   </div>
   <div class="pill" id="s4pill">
     <span>绕排行数 <b id="s4lc">-</b></span>
@@ -363,7 +160,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s5">
   <div class="sl">Layout 05</div>
-  <h1 class="st">交错对位 · Staggered</h1>
+  <h2 class="st">交错对位 · Staggered</h2>
   <div class="hud">
     <label>正文字号 <input type="range" id="s5fs" min="13" max="22" value="15" step="1"></label>
     <span class="v" id="s5fsv">15px</span>
@@ -405,7 +202,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s6">
   <div class="sl">Layout 06</div>
-  <h1 class="st">模块化网格 · Modular Grid</h1>
+  <h2 class="st">模块化网格 · Modular Grid</h2>
   <div class="hud">
     <label>正文字号 <input type="range" id="s6fs" min="11" max="18" value="13" step="1"></label>
     <span class="v" id="s6fsv">13px</span>
@@ -441,7 +238,7 @@ nav a:hover{color:#c9a96e}
       <h4 class="mh4">包容性</h4>
       <p class="mp" id="s6t5">包容性设计不再只是无障碍的同义词，而是关乎如何让更多人参与到设计过程中，让多元视角塑造更好的解决方案。</p>
     </div>
-    <div class="mcell">
+    <div class="mcell w4">
       <div class="mnum">06</div>
       <h4 class="mh4">数据可视化</h4>
       <p class="mp" id="s6t6">数据叙事正在成为设计师的核心竞争力。将复杂信息转化为直观体验，需要同时具备分析思维和叙事能力。</p>
@@ -459,7 +256,7 @@ nav a:hover{color:#c9a96e}
      ════════════════════════════════════════════════ -->
 <section class="sc" id="s7">
   <div class="sl">Layout 07</div>
-  <h1 class="st">自由版式 · Free / Asymmetric</h1>
+  <h2 class="st">自由版式 · Free / Asymmetric</h2>
   <div class="hud">
     <label>字号缩放 <input type="range" id="s7scale" min="80" max="140" value="100" step="5"></label>
     <span class="v" id="s7scalev">100%</span>
@@ -504,195 +301,6 @@ nav a:hover{color:#c9a96e}
   <div class="r"><span>total chars</span><span class="v" id="dCh">0</span></div>
 </div>
 
-<script type="module">
-import{prepare as p_,layout as l_}from'https://esm.sh/@chenglou/pretext@0.0.4';
-
-const $=id=>document.getElementById(id);
-const gf=el=>{
-  const s=getComputedStyle(el);
-  return `${s.fontWeight||'400'} ${s.fontSize||'16px'} ${s.fontFamily||'sans-serif'}`
-};
-const lh=el=>{
-  const s=getComputedStyle(el),fs=parseFloat(s.fontSize),v=s.lineHeight;
-  return v==='normal'?Math.round(fs*1.6):(parseFloat(v)||fs*1.6)
-};
-const ms=(txt,font,w,lh_)=>{
-  try{return l_(p_(txt,font,{whiteSpace:'normal'}),w,lh_)}
-  catch(e){return null}
-};
-
-const stats=new Map();
-const db=()=>{
-  const total=Array.from(stats.values()).reduce((a,s)=>({
-    blocks:a.blocks+s.blocks,lines:a.lines+s.lines,chars:a.chars+s.chars
-  }),{blocks:0,lines:0,chars:0});
-  $('dBlk').textContent=total.blocks;$('dLn').textContent=total.lines;$('dCh').textContent=total.chars
-};
-const resetStats=id=>{stats.set(id,{blocks:0,lines:0,chars:0});db()};
-const recordStats=(id,r,txt)=>{
-  const s=stats.get(id);s.blocks++;s.lines+=r.lineCount;s.chars+=txt.length;db()
-};
-
-// ── 1. 通栏 ──
-function s1(){
-  resetStats(1);
-  const el=$('s1body'),fs=parseInt($('s1fs').value);
-  $('s1fsv').textContent=fs+'px';
-  el.style.fontSize=fs+'px';
-  const txt=el.textContent.replace(/\s+/g,' ').trim(),f=gf(el),l=lh(el),w=el.clientWidth;
-  if(w>0){
-    const r=ms(txt,f,w,l);
-    if(r){
-      $('s1lc').textContent=r.lineCount;$('s1ht').textContent=Math.round(r.height);
-      $('s1ch').textContent=txt.length;
-      const min=Math.max(1,Math.round(txt.length/250));
-      $('s1rt').textContent=`约 ${min} 分钟`;
-      recordStats(1,r,txt)
-    }
-  }
-}
-$('s1fs').addEventListener('input',s1);
-
-// ── 2. 双栏 ──
-function s2(){
-  resetStats(2);
-  const n=parseInt($('s2col').value);
-  $('s2colv').textContent=n+' 栏';
-  $('s2wrap').style.columnCount=n;
-  const ps=$('s2wrap').querySelectorAll('.two-p'),all=Array.from(ps).map(p=>p.textContent).join(' ');
-  const f=gf(ps[0]),l=lh(ps[0]);
-  const cw=($('s2wrap').clientWidth-44*(n-1))/n;
-  if(cw>0){
-    const r=ms(all,f,cw,l);
-    if(r){
-      $('s2lc').textContent=r.lineCount;
-      $('s2ppc').textContent=Math.round(r.lineCount/n);
-      const min=Math.max(1,Math.round(all.length/250));
-      $('s2rt').textContent=`约 ${min} 分钟`;
-      recordStats(2,r,all)
-    }
-  }
-}
-$('s2col').addEventListener('input',s2);
-
-// ── 3. 三栏 ──
-function s3(){
-  resetStats(3);
-  const n=parseInt($('s3col').value);
-  $('s3colv').textContent=n+' 栏';
-  $('s3wrap').style.columnCount=n;
-  const ps=$('s3wrap').querySelectorAll('.three-p'),all=Array.from(ps).map(p=>p.textContent).join(' ');
-  const f=gf(ps[0]),l=lh(ps[0]);
-  const cw=($('s3wrap').clientWidth-32*(n-1))/n;
-  if(cw>0){
-    const r=ms(all,f,cw,l);
-    if(r){
-      $('s3lc').textContent=r.lineCount;
-      $('s3ppc').textContent=Math.round(r.lineCount/n);
-      $('s3cw').textContent=Math.round(cw);
-      recordStats(3,r,all)
-    }
-  }
-}
-$('s3col').addEventListener('input',s3);
-
-// ── 4. 绕排 ──
-function s4(){
-  resetStats(4);
-  const side=$('s4side').value,iw=parseInt($('s4w').value);
-  $('s4wv').textContent=iw+'px';
-  const img=$('s4img');
-  img.style.cssFloat=side;
-  img.style.width=iw+'px';
-  img.className='wrap-img'+(side==='right'?' r':'');
-
-  const el=$('s4body'),txt=el.textContent.replace(/\s+/g,' ').trim();
-  const f=gf(el),l=lh(el);
-  // Estimate the width beside the float; on mobile the image is above the text.
-  const wrap=$('s4wrap'),ws=getComputedStyle(wrap),is=getComputedStyle(img);
-  const inset=(parseFloat(ws.paddingLeft)||0)+(parseFloat(ws.paddingRight)||0);
-  const imageSpace=is.cssFloat==='none'?0:img.getBoundingClientRect().width+
-    (parseFloat(is.marginLeft)||0)+(parseFloat(is.marginRight)||0);
-  const ww=wrap.clientWidth-inset-imageSpace;
-  if(ww>100){
-    const r=ms(txt,f,ww,l);
-    if(r){
-      $('s4lc').textContent=r.lineCount;$('s4ht').textContent=Math.round(r.height);
-      $('s4ch').textContent=txt.length;
-      recordStats(4,r,txt)
-    }
-  }
-}
-$('s4side').addEventListener('change',s4);
-$('s4w').addEventListener('input',s4);
-
-// ── 5. 交错 ──
-function s5(){
-  resetStats(5);
-  const fs=parseInt($('s5fs').value);
-  $('s5fsv').textContent=fs+'px';
-  let th=0;
-  $('s5stagger').querySelectorAll('.stag-p').forEach(el=>{
-    el.style.fontSize=fs+'px';
-    const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
-    if(w>0){const r=ms(txt,f,w,l);if(r){th+=r.height;recordStats(5,r,txt)}}
-  });
-  $('s5th').textContent=Math.round(th);
-}
-$('s5fs').addEventListener('input',s5);
-
-// ── 6. 网格 ──
-function s6(){
-  resetStats(6);
-  const fs=parseInt($('s6fs').value);
-  $('s6fsv').textContent=fs+'px';
-  $('s6grid').querySelectorAll('.mp').forEach(el=>el.style.fontSize=fs+'px');
-  const ids=['s6t0','s6t1','s6t2','s6t3','s6t4','s6t5','s6t6'];
-  let ml=0,th=0;
-  ids.forEach(id=>{
-    const el=$(id);if(!el)return;
-    const txt=el.textContent,f=gf(el),l=lh(el),w=el.clientWidth;
-    if(w>0){const r=ms(txt,f,w,l);if(r){ml=Math.max(ml,r.lineCount);th+=r.height;recordStats(6,r,txt)}}
-  });
-  $('s6ml').textContent=ml;$('s6th').textContent=Math.round(th);
-}
-$('s6fs').addEventListener('input',s6);
-
-// ── 7. 自由 ──
-function s7(){
-  resetStats(7);
-  const scale=parseInt($('s7scale').value)/100;
-  $('s7scalev').textContent=Math.round(scale*100)+'%';
-  let tot=0,cnt=0;
-  for(let i=1;i<=5;i++){
-    const el=$(('s7e'+i));if(!el)continue;
-    el.style.fontSize=(14*scale)+'px';
-    const txt=el.textContent.replace(/\s+/g,' ').trim(),f=gf(el),l=lh(el);
-    // estimate at ~200px width for free elements
-    const r=ms(txt,f,220,l);
-    if(r){tot+=r.lineCount;cnt++;recordStats(7,r,txt)}
-  }
-  $('s7lc').textContent=tot;
-  $('s7avg').textContent=cnt?(tot/cnt).toFixed(1):'-';
-}
-$('s7scale').addEventListener('input',s7);
-
-// ── All ──
-function all(){s1();s2();s3();s4();s5();s6();s7()}
-let rt;
-window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(all,250)});
-document.fonts.ready.then(()=>setTimeout(all,120));
-window.addEventListener('load',all);
-
-document.querySelectorAll('nav a').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t)t.scrollIntoView({behavior:'smooth'})
-  })
-});
-
-console.log('7 layouts × Pretext ready');
-</script>
+<script src="js/magazine-pretext.js"></script>
 </body>
 </html>
